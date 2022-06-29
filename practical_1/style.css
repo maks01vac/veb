@@ -46,17 +46,17 @@ ul li{
 #community{
     border: 1px solid rgb(199, 199, 199);
     border-radius: 50px;
-    margin-right: 600px;
+    margin-right: 30%;
 }
 #logo{
     margin-right:450px;
-    margin-left: 100px;
+    margin-left: 5%;
 }
 #kurs{
-    margin-right: 80px;
+    margin-right:80px;
 }
 #search{
-    margin-right: 30px;
+    margin-right: 5%;
 }
 section{
     height: 463px;
@@ -122,4 +122,8 @@ footer{
 }
 .bottom ul li{
     padding: 5px;
+}
+#content_img{
+    margin-top:-299px;
+    text-align: right;
 }
