@@ -1,6 +1,8 @@
 @font-face {
-    font-family: Circe; /* Гарнитура шрифта */
-    src:url(prakt_1) /* Путь к файлу со шрифтом */
+    font-family: 'Circe_Regular'; /* Гарнитура шрифта */
+    src:url('./Circe_Regular.otf');
+    font-family: 'Circe_Bold'; /* Путь к файлу со шрифтом */
+    src:url('./Circe_Bold.otf'); /* Путь к файлу со шрифтом */
    }
 *{
     padding: 0;
@@ -9,47 +11,57 @@
 }
 body, html{
     overflow-x: hidden;
+    background-color: #F9EDE7;
+    font-family:'Circe';
+}
+header{
+    max-width: 2000px;
+    background-color: #ffffff;
 }
 nav{
     margin: auto;
     max-width: 1400px;
     width: 100%;
-    background-color: #ffffff;
-    font-family: ;
+    font-family:'Circe';
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
-#checkbox_menu{
-    display: none;
-}
-
-.menu{
+.menu_left, .menu_center, .menu_right{
     margin: 0;
     padding: 0;
     display:flex;
     flex-direction: row;
-    justify-content: space-around;
     align-items: center;
     height: 83px;
+    width: 33%;
 }
-ul li a{
+.menu_left{
+    justify-content: flex-start;
+    padding-left: 1%;
+}
+.menu_center{
+    justify-content:center;
+}
+.menu_right{
+    justify-content: flex-end;
+    padding-right: 1%;
+}
+nav a{
     text-decoration: none;
     color: rgb(100, 100, 100);
     padding: 5px 20px;
     align-self: center;
     font-size: 12px;
     margin-top: 10px;
-    font-family: 'Circe';
-}
-ul li{
- list-style-type:none;
 }
 #community{
     border: 1px solid rgb(199, 199, 199);
     border-radius: 50px;
-    margin-right: 30%;
 }
 #logo{
-    margin-right:450px;
-    margin-left: 5%;
+    margin-right:30%;
 }
 #kurs{
     margin-right:80px;
@@ -58,24 +70,21 @@ ul li{
     margin-right: 5%;
 }
 main{
-    margin-left: auto;
-    margin-right: auto;
     background-color: #F9EDE7;
 }
-#Center{
-max-width:1400px;
-}
 section{
-    max-height: 463px;
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    height: 463px;
     background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 section div{
     width: 350px;
     height: 463px;
-    margin-left: 100px;
+    margin-left: 10%;
 }
 section div p {
     font-size: 18px;
@@ -98,11 +107,28 @@ section div button{
     line-height: 27px;
     text-align: center;
     box-shadow: 0px 8px 18px -6px rgba(24, 39, 75, 0.12), 0px 12px 42px -4px rgba(24, 39, 75, 0.12);
-border-radius: 80px;
+    border-radius: 80px;
 }
-#girl{
+.count_kurs{
+    display: flex;
+    flex-direction: row;
+    justify-items: flex-end;
+    align-items: flex-start;
+    margin-right: 10%;
+    font-size: 16px;
+    padding-top: 100px;
+    
+}
+.count_kurs ul li{
+    list-style: none;
+}
+.Number{
+    font-size: 64px;
+    font-family:'Circe_Bold';
+}
+#content_img{
+    width: 100%;
     align: right;
-    position: relative;
 }
 footer{
     height: 334px;
@@ -128,9 +154,16 @@ footer{
 }
 .bottom ul{
     margin-top: 30px;
+    list-style-type: none;
+    
 }
 .bottom ul li{
     padding: 5px;
+}
+.bottom ul li i{
+    height: 20px;
+    width: 20px;
+    margin:5px;
 }
 #content_img{
     margin-top:-299px;
