@@ -12,17 +12,16 @@
 <body>
     <header>
         <nav>
-            <input type="checkbox" id="checkbox_menu">
-            <label id="checkbox"> 
-                <ul class="menu touch">
-                    <li id="logo"><img src="images/Vector.png"></li>
-                    <li><a href="#" id="kurs">ВЫБРАТЬ КУРС</a></li>
-                    <li><a href="#" id="community">СООБЩЕСТВО</a></li>
-                    <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
-                    <li><a href="#"><i class="fa-solid fa-envelope"></i></a></li>
-                    <li id="search"><a href="#"><i class="fa-solid fa-user-large"></i></a></li>
-                </ul>
-            </label>   
+            <div class="menu_left"><img src="images/Vector.png"></div>
+            <div class="menu_center">
+                <a href="#" id="kurs">ВЫБРАТЬ КУРС</a>
+                <a href="#" id="community">СООБЩЕСТВО</a>
+            </div>
+            <div class="menu_right">
+                <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                <a href="#"><i class="fa-solid fa-envelope"></i></a>
+                <a href="#"><i class="fa-solid fa-user-large"></i></a>
+            </div> 
         </nav>
     </header>
     <main>
@@ -33,8 +32,24 @@
                     Перейдите на Главную и выберете курс по душе</p>
                 <button>подобрать курс</button>
             </div>
+            <div class="count_kurs">
+                <div>
+                    <ul>
+                        <li>Курсов</li>
+                        <li class="Number">0</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li >Уроков</li>
+                        <li class="Number">0</li>
+                    </ul>
+                </div>
+            </div>
         </section>
-        <img src="images/1.png" id="content_img">
+        <div id="content_img">
+            <img src="images/1.png">
+        </div>
     </main>
     <footer>
         <div Class="bottom_logo"><img src="images/2.png"></div>
@@ -60,7 +75,12 @@
             <ul>
                 <li>info@form.com</li>
                 <li>+7 888 888 88 88</li>
-                <li>Привет как дела</li>
+                <li>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-youtube"></i>
+                    <i class="fa-brands fa-tiktok"></i>
+                    <i class="fa-brands fa-vk"></i>
+                </li>
             </ul>
         </div>
     </footer>
