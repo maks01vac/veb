@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'Circe';
+    src:url('./fonts/Circe_Regular.otf');
+    font-family:'Circe_Bold'; 
+    src:url('./fonts/Circe_Bold.otf');
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: 'Circe';
+    color: #272727;
+}
+
+.flex_block{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.nav{
+    max-width: 1320px;
+    max-height: 83px;
+    min-height: 70px;
+    margin: 0px auto;
+    justify-content: space-between;
+}
+.nav_block{
+    width: 33%;
+}
+.nav_block_left{
+    justify-content:flex-start;
+    padding-left:25px;
+}
+.nav_block_center{
+    justify-content:center;
+}
+.nav_block_right{
+    justify-content: flex-end;
+}
+.nav_block_link{
+    text-decoration: none;
+    color: #272727;
+}
+.nav_link_center{
+    margin:0 1.5% 0 1.5%;
+    padding:2px 23px 2px 23px;
+    display: block;
+    white-space: nowrap;
+}
+.nav_block_link_community{
+    border: 1px solid;
+    border-radius: 30px;
+}
+.nav_block_link_icon{
+    margin-left: 20px;
+}
+
+
+ 
