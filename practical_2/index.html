@@ -27,7 +27,7 @@
     </header>
     <main>
         <section class="main flex_block">
-            <div class="flex_block main_section_1  container_default">
+            <div class="main_section_1 flex_block container_default">
                 <div class="Hello_block">
                     <h1 class="Hello">Привет, Анастасия!</h1>
                     <p class="p_section_1">У вас пока нет купленных и добавленных курсов. Перейдите на Главную и
@@ -40,84 +40,92 @@
                 </div>
             </div>
         </section>
-        <section class="container_default flex_block main_section_2">
+        <section class="main_section_2 container_default">
             <div class="main_kurs">
-                <h2>ПОПУЛЯРНЫЕ КУРСЫ</h1>
-                    <div class="complication_kurs flex_block">
-                        <div class="complication_kurs_block flex_block">
-                            <div class="complication_kurs_def complication_kurs_back">
-                                <img src="images/kurs_1.png">
-                            </div>
-                            <div class="complication_kurs_def complication_kurs_forward kurs_1">
+                <h2 class="setion_2_h2">ПОПУЛЯРНЫЕ КУРСЫ</h2>
+                <div class="complication_kurs flex_block">
+                    <div class="complication_kurs_block flex_block">
+                        <div class="complication_kurs_def complication_kurs_back">
+                            <img src="images/kurs_1.png" class="content_img">
+                        </div>
+                        <div class="complication_kurs_def flex_block complication_kurs_forward kurs_1">
+                            <div>
                                 <p class="kurs_p">автор: Александра Иванова</p>
                                 <h3 class="kurs_h3">Сделаем прекрасный домашний шоколад</h3>
-                                <div>
-                                    <a href="#" class="buttom_free"></a>
-                                    <a href="#"></a>
-                                </div>
                             </div>
-                        </div>
-                        <div class="complication_kurs_block flex_block">
-                            <div class="complication_kurs_def complication_kurs_back">
-                                <img src="images/kurs_2.png">
-                            </div>
-                            <div class="complication_kurs_def complication_kurs_forward kurs_2">
-                                <p class="kurs_p">автор: Александра Иванова</p>
-                                <h3 class="kurs_h3">Сделаем прекрасный домашний шоколад</h3>
-                                <div>
-                                    <p></p>
-                                    <a href="#"></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="complication_kurs_block flex_block">
-                            <div class="complication_kurs_def complication_kurs_back">
-                                <img src="images/kurs_3.png">
-                            </div>
-                            <div class="complication_kurs_def complication_kurs_forward kurs_3">
-                                <p class="kurs_p">автор: Александра Иванова</p>
-                                <h3 class="kurs_h3">Медитация. Основы</h3>
-                                <div>
-                                    <p></p>
-                                    <a href="#"></a>
-                                </div>
+                            <div сlass="flex_block">
+                                <a href="#" class="buttom_free nav_block_link">бесплатно</a>
+                                <a href="#" class="buttom_add nav_block_link">добавить</a>
                             </div>
                         </div>
                     </div>
+                    <div class="complication_kurs_block flex_block">
+                        <div class="complication_kurs_def complication_kurs_back">
+                            <img src="images/kurs_2.png" class="content_img">
+                        </div>
+                        <div class="complication_kurs_def flex_block complication_kurs_forward kurs_2">
+                            <div>
+                                <p class="kurs_p">автор: Александра Иванова</p>
+                                <h3 class="kurs_h3">Сделаем прекрасный домашний шоколад</h3>
+                            </div>
+                            <div сlass="price_block flex_block">
+                                <p class="price">1800 руб.</p>
+                                <a href="#" class="buttom_add nav_block_link">добавить</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="complication_kurs_block flex_block">
+                        <div class="complication_kurs_def complication_kurs_back">
+                            <img src="images/kurs_3.png" class="content_img">
+                        </div>
+                        <div class="complication_kurs_def flex_block complication_kurs_forward kurs_3">
+                            <div>
+                                <p class="kurs_p">автор: Александра Иванова</p>
+                                <h3 class="kurs_h3">Медитация. Основы</h3>
+                            </div>
+                            <div сlass="price_block flex_block">
+                                <p class="price">1800 руб.</p>
+                                <a href="#" class="buttom_add nav_block_link">добавить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
-    <footer class="footer container_default flex_block ">
-        <div></div>
-        <div>
+    <footer class="footer">
+        <div class="footer_box container_default flex_block ">
+            <div><img src="images/Vector.png"></div>
             <div>
-                <ul>
-                    <li>Выбрать курс</li>
-                    <li>Новинки</li>
-                    <li>Зож</li>
-                    <li>Психология</li>
-                    <li>Развитие</li>
-                    <li>Образование</li>
-                </ul>
-            </div>
-            <div>
-                <ul>
-                    <li>Преподователи</li>
-                    <li>Ученикам</li>
-                    <li>Переводчикам</li>
-                    <li>ЧАТ</li>
-                </ul>
-            </div>
-            <div>
-                <ul>
-                    <li>info@form.com</li>
-                    <li>+7 888 888 88 88</li>
-                    <li><i class="fa-brands fa-instagram"></i>
-                        <i class="fa-brands fa-youtube"></i>
-                        <i class="fa-brands fa-tiktok"></i>
-                        <i class="fa-brands fa-vk"></i>
-                    </li>
-                </ul>
+                <div>
+                    <ul>
+                        <li>Выбрать курс</li>
+                        <li>Новинки</li>
+                        <li>Зож</li>
+                        <li>Психология</li>
+                        <li>Развитие</li>
+                        <li>Образование</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li>Преподователи</li>
+                        <li>Ученикам</li>
+                        <li>Переводчикам</li>
+                        <li>ЧАТ</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li>info@form.com</li>
+                        <li>+7 888 888 88 88</li>
+                        <li><i class="fa-brands fa-instagram"></i>
+                            <i class="fa-brands fa-youtube"></i>
+                            <i class="fa-brands fa-tiktok"></i>
+                            <i class="fa-brands fa-vk"></i>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </footer>
