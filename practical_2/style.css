@@ -73,10 +73,17 @@ body {
 .nav_block_link_icon {
     margin-left: 20px;
 }
-
-.main {
+.main{
+    width: 100%;
+}
+.main_1 {
     background-color: #F9EDE7;
     flex-direction: column;
+    width: 100%;
+}
+
+.none {
+    display: none;
 }
 
 .main_section_1 {
@@ -89,7 +96,8 @@ body {
     max-width: 400px;
     min-width: 313px;
     margin: 5px;
-    min-height: 221px;
+    min-height: 200px;
+
 }
 
 .Hello {
@@ -112,21 +120,18 @@ body {
     box-shadow: 0px 8px 18px -6px rgba(24, 39, 75, 0.12), 0px 12px 42px -4px rgba(24, 39, 75, 0.12);
     border-radius: 80px;
     padding: 20px 0;
+    font-family:'Circe';
 }
 
 .img_section_1 {
     max-width: 840px;
     max-height: 560px;
-    min-height: 490;
-    min-width: 510px;
     margin: 0 -60px 0 10px;
 }
 
 .img_section_1 img {
     max-height: 100%;
     max-width: 100%;
-    min-height: 70%;
-    min-width: 70%;
 }
 
 .main_section_2 {
@@ -157,7 +162,7 @@ body {
 
 .complication_kurs_def {
     border-radius: 30px 30px 30px 0px;
-    width:100%;
+    width: 100%;
     flex-direction: column;
     align-items: flex-start;
 }
@@ -203,6 +208,7 @@ body {
 .kurs_h3 {
     font-size: 21px;
 }
+
 #price_block {
     height: 60px;
     width: 100%;
@@ -239,6 +245,7 @@ body {
     color: #ffff;
     min-height: 334px;
     justify-content: center;
+    padding-bottom: 50px;
 }
 
 .footer_box {
@@ -248,9 +255,11 @@ body {
 }
 
 .footer_half_box {
-    min-width: 600px;
+    max-width: 700px;
+    min-width: 250px;
     min-height: 175px;
     align-items: flex-start;
+    width: 100%;
 }
 
 .number {
@@ -260,6 +269,10 @@ body {
 .ul_def {
     list-style-type: none;
     font-size: 12px;
+}
+
+.ul_block {
+    width: 33%;
 }
 
 .ul_def li {
@@ -275,12 +288,16 @@ body {
         flex-wrap: wrap;
 
     }
+
     .complication_kurs_block {
         width: 360px;
     }
 }
 
-@media (max-width:93px) {
+@media (max-width:933px) {
+    .container_default {
+        padding: 0 20px 0 20px;
+    }
 
     .main_section_1 {
         flex-wrap: wrap;
@@ -289,9 +306,133 @@ body {
     .Hello_block {
         min-width: 600px;
         min-height: 300px;
+        margin-bottom: 30px;
+        margin-top: 5%;
+    }
+    .buttom_section_1{
+        min-width: 427px;
+        max-width: 500px;
+
+    }
+
+    .footer_box {
+        flex-wrap: wrap;
     }
 
     .footer_half_box {
-        flex-wrap: wrap;
+        min-height: 70px;
+        width: 100%;
     }
+
+    .img_section_1 {
+        margin-right: 50px;
+        align-self: center;
+    }
+
+    .img_section_1 img {
+        height: 420px;
+        width: 490px;
+    }
+}
+@media (max-width:933px){
+    .complication_kurs_block {
+        width: 340px;
+        height: 440px;
+    }
+}
+@media (max-width:650px) {
+    .Hello_block {
+        min-width: 100px;
+        min-height: 300px;
+
+    }
+    .buttom_section_1{
+        min-width: 300px;
+        max-width: 400px;
+        padding: 15px 0;
+    }
+    .nav_block_center {
+        display: none;
+    }
+
+    .nav_block_right {
+        display: none;
+    }
+
+    .Hello {
+        font-size: 28px;
+    }
+    .img_section_1{
+        height: 230px;
+        max-width: 280px;
+        min-width: 230px;
+    }
+    .img_section_1 img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .none {
+        display: flex;
+        font-size: 25px;
+        width: 100%;
+        justify-content: space-around;
+        padding: 10px;
+    }
+    .setion_2_h2{
+        font-size: 14px;
+    }
+    .complication_kurs_block {
+        height: 300px;
+        width: 230px;
+    }
+    .kurs_h3 {
+        font-size: 16px;
+    }
+
+    .complication_kurs_forward {
+        padding: 10px;
+    }
+
+    .price {
+        font-size: 14px;
+    }
+
+    .buttom_free {
+        font-size: 12px;
+        padding: 5px 15px;
+        min-width: 60px;
+    }
+
+    .buttom_add {
+        font-size: 12px;
+        padding: 5px 15px;
+        min-width: 60px;
+        
+    }
+
+    .footer {
+        padding-top: 20px;
+    }
+    .start{
+        justify-content: flex-start;
+    }
+    .ul_block{
+        min-width: 125px;
+    }
+    .contact {
+        display: none;
+    }
+
+    .border {
+        border-top: 2px solid #ffff
+    }
+
+}
+@media (max-width:280px){
+    .buttom_section_1{
+        min-width: 200px;
+        max-width: 280px;
+        padding: 10px 0;
+        font-size: 16px;
 }
