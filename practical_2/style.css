@@ -148,7 +148,7 @@ body {
 }
 
 .complication_kurs_block {
-    height: 468px;
+    max-height: 468px;
     width: 426px;
     flex-direction: column;
     margin: 20px 20px 20px 0;
@@ -193,7 +193,6 @@ body {
 
 .kurs_3 {
     background: #F6ECE3;
-    margin-right: 0px;
 }
 
 .kurs_p {
@@ -203,12 +202,13 @@ body {
 .kurs_h3 {
     font-size: 21px;
 }
-.price_block_ok {
-    height: 21px;
-    width: 426px;
+#price_block {
+    height: 60px;
+    width: 100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    align-items: center;
 }
 
 .price {
@@ -218,10 +218,18 @@ body {
 .buttom_free {
     box-shadow: 0px 6px 14px -6px rgba(24, 39, 75, 0.12), 0px 10px 32px -4px rgba(24, 39, 75, 0.1);
     border-radius: 20px 20px 20px 0px;
+    box-sizing: border-box;
+    padding: 5px 30px;
+    min-width: 100px;
+    text-align: center;
+    background: #83CCAF;
 }
 
 .buttom_add {
-    
+    box-sizing: border-box;
+    padding: 5px 30px;
+    min-width: 100px;
+    text-align: center;
 }
 
 .footer {
