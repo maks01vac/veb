@@ -14,7 +14,10 @@ body {
     color: #272727;
     font-family: 'Circe';
 }
-
+.wrapper{
+    min-height: 100%;
+    overflow: hidden;
+}
 .container_default {
     margin: 0px auto;
     max-width: 1440px;
@@ -341,7 +344,7 @@ body {
         height: 440px;
     }
 }
-@media (max-width:650px) {
+@media (max-width:760px) {
     .container_default {
         padding: 0 20px 0 20px;
     }
