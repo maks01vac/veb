@@ -1,0 +1,21 @@
+body{
+    margin:0;
+    padding:0
+}
+.main{
+    width: 500px;
+    margin:0 auto;
+    background-color:antiquewhite;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding:20px
+}
+.active{
+    margin:10px 0;
+    min-height: 30px;
+    border: 0.5 solid rgb(0, 0, 0);
+}
+.active:hover{
+    border: 2.5px solid rgb(0, 0, 0);
+}
