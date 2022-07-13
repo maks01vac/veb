@@ -1,4 +1,5 @@
-[{
+function infoCources() { 
+    var arrayCourcesInfo = [{
     img:"images/kurs_1.png",
     author:"автор: Александра Иванова",
     title:"Сделаем прекрасный домашний шоколад",
@@ -18,4 +19,8 @@
     title:"Медитация. Основы",
     price:1800,
     background:"#F6ECE3",
-}];
+},
+
+];
+return arrayCourcesInfo;
+}
