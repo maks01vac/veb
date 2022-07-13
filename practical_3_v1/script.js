@@ -19,12 +19,15 @@ const courceThree = {
     price:1800,
     background:"#F6ECE3",
 };
+
 const courceBlocksInfo = [courceOne, courceTwo, courceThree];
 var countCourceBlocksInfo = courceBlocksInfo.length;
 console.log(countCourceBlocksInfo);
+
 const CourceBlocks = document.querySelector('.complication_kurs');
 console.log(CourceBlocks);
 const arrCourceBlock = [];
+
 for(let i=0;i<=countCourceBlocksInfo;i++){
     arrCourceBlock[i] = `<div class="complication_kurs_block flex_block">
     <div class="complication_kurs_def complication_kurs_back">
@@ -50,5 +53,6 @@ for(let i=0;i<=countCourceBlocksInfo;i++){
     </div>
 </div>`
         }
+        
     CourceBlocks.insertAdjacentHTML('beforeend',arrCourceBlock[i]);
 }

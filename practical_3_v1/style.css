@@ -1,0 +1,449 @@
+@font-face {
+    font-family: 'Circe';
+    src: url('./fonts/Circe_Regular.otf');
+    font-family: 'Circe_Bold';
+    src: url('./fonts/Circe_Bold.otf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: #272727;
+    font-family: 'Circe';
+}
+.wrapper{
+    min-height: 100%;
+    overflow: hidden;
+}
+.container_default {
+    margin: 0px auto;
+    max-width: 1440px;
+    box-sizing: border-box;
+    padding: 0 60px 0 60px;
+}
+
+.flex_block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav {
+    max-height: 83px;
+    min-height: 70px;
+    justify-content: space-between;
+}
+
+.nav_block {
+    width: 33%;
+}
+
+.nav_block_left {
+    justify-content: flex-start;
+    padding-left: 2%;
+}
+
+.nav_block_center {
+    justify-content: center;
+}
+
+.nav_block_right {
+    justify-content: flex-end;
+}
+
+.nav_block_link {
+    text-decoration: none;
+    color: #272727;
+}
+
+.nav_link_center {
+    margin: 0 1.5% 0 1.5%;
+    padding: 2px 23px 2px 23px;
+    display: block;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+.nav_block_link_community {
+    border: 1px solid;
+    border-radius: 30px;
+}
+
+.nav_block_link_icon {
+    margin-left: 20px;
+}
+.main{
+    width: 100%;
+}
+.main_1 {
+    background-color: #F9EDE7;
+    flex-direction: column;
+    width: 100%;
+}
+
+.none {
+    display: none;
+}
+
+.main_section_1 {
+    min-height: 600px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.Hello_block {
+    max-width: 400px;
+    min-width: 313px;
+    margin: 5px;
+    min-height: 200px;
+
+}
+
+.Hello {
+    font-size: 64px;
+    margin-bottom: 20px;
+}
+
+.p_section_1 {
+    font-size: 18px;
+    margin-bottom: 70px;
+}
+
+.buttom_section_1 {
+    display: inline-block;
+    min-width: 313px;
+    max-width: 400px;
+    text-align: center;
+    font-size: 18px;
+    background: #FFE69B;
+    box-shadow: 0px 8px 18px -6px rgba(24, 39, 75, 0.12), 0px 12px 42px -4px rgba(24, 39, 75, 0.12);
+    border-radius: 80px;
+    padding: 20px 0;
+    font-family:'Circe';
+}
+
+.img_section_1 {
+    max-width: 840px;
+    max-height: 560px;
+    margin: 0 -60px 0 10px;
+}
+
+.img_section_1 img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.main_section_2 {
+    background-color: #ffff;
+    flex-direction: column;
+}
+
+.main_kurs {
+    width: 100%;
+    margin-top: 59px;
+}
+
+.setion_2_h2 {
+    font-size: 27px;
+}
+
+.complication_kurs {
+    justify-content: flex-start;
+
+}
+
+.complication_kurs_block {
+    height: 468px;
+    width: 426px;
+    flex-direction: column;
+    margin: 20px 20px 20px 0;
+}
+
+.complication_kurs_def {
+    border-radius: 30px 30px 30px 0px;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.complication_kurs_back {
+    height: 70%;
+    margin-bottom: -15%;
+}
+
+.content_img {
+    width: 100%;
+    height: 100%;
+}
+
+.complication_kurs_forward {
+    height: 45%;
+    background: #E5E5E5;
+    box-sizing: border-box;
+    padding: 30px;
+}
+
+.kurs_img {
+    width: 100%;
+    height: 100%;
+}
+
+.kurs_1 {
+    background: #FAD1DB;
+}
+
+.kurs_2 {
+    background: #E5E5E5;
+}
+
+.kurs_3 {
+    background: #F6ECE3;
+}
+
+.kurs_p {
+    font-size: 10px;
+}
+
+.kurs_h3 {
+    font-size: 21px;
+    font-family: 'Circe_Bold';
+}
+
+#price_block {
+    height: 60px;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    font-size: 20px;
+}
+
+.buttom_free {
+    box-shadow: 0px 6px 14px -6px rgba(24, 39, 75, 0.12), 0px 10px 32px -4px rgba(24, 39, 75, 0.1);
+    border-radius: 20px 20px 20px 0px;
+    box-sizing: border-box;
+    padding: 5px 30px;
+    min-width: 100px;
+    text-align: center;
+    background: #83CCAF;
+}
+
+.buttom_add {
+    box-sizing: border-box;
+    padding: 5px 30px;
+    min-width: 100px;
+    text-align: center;
+}
+
+.footer {
+    margin-top: 59px;
+    background: #272727;
+    color: #ffff;
+    min-height: 334px;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
+.footer_box {
+    height: 100%;
+    width: 100%;
+
+}
+
+.footer_half_box {
+    max-width: 700px;
+    min-width: 250px;
+    min-height: 175px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.number {
+    font-size: 18px;
+}
+
+.ul_def {
+    list-style-type: none;
+    font-size: 12px;
+}
+
+.ul_block {
+    width: 33%;
+}
+
+.ul_def li {
+    padding: 5px;
+}
+
+.ul_def li i {
+    padding: 5px;
+}
+
+@media (max-width:1200px) {
+    .complication_kurs {
+        flex-wrap: wrap;
+
+    }
+
+    .complication_kurs_block {
+        width: 360px;
+    }
+}
+
+@media (max-width:933px) {
+    .container_default {
+        padding: 0 20px 0 20px;
+    }
+
+    .main_section_1 {
+        flex-wrap: wrap;
+    }
+
+    .Hello_block {
+        min-width: 600px;
+        min-height: 300px;
+        margin-bottom: 30px;
+        margin-top: 5%;
+    }
+    .buttom_section_1{
+        min-width: 427px;
+        max-width: 500px;
+
+    }
+
+    .footer_box {
+        flex-wrap: wrap;
+    }
+
+    .footer_half_box {
+        min-height: 70px;
+        width: 100%;
+    }
+
+    .img_section_1 {
+        margin-right: 50px;
+        align-self: center;
+    }
+
+    .img_section_1 img {
+        height: 420px;
+        width: 490px;
+    }
+}
+@media (max-width:933px){
+    .complication_kurs_block {
+        width: 340px;
+        height: 440px;
+    }
+}
+@media (max-width:760px) {
+    .container_default {
+        padding: 0 20px 0 20px;
+    }
+    .Hello_block {
+        min-width: 100px;
+        min-height: 300px;
+
+    }
+    .buttom_section_1{
+        min-width: 300px;
+        max-width: 400px;
+        padding: 15px 0;
+    }
+    .nav_block_center {
+        display: none;
+    }
+
+    .nav_block_right {
+        display: none;
+    }
+
+    .Hello {
+        font-size: 28px;
+    }
+    .img_section_1{
+        height: 230px;
+        max-width: 280px;
+        min-width: 230px;
+    }
+    .img_section_1 img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .none {
+        display: flex;
+        font-size: 25px;
+        width: 100%;
+        justify-content: space-around;
+        padding: 10px;
+    }
+    .setion_2_h2{
+        font-size: 14px;
+    }
+    .complication_kurs_block {
+        height: 300px;
+        width: 230px;
+    }
+    .complication_kurs_back {
+        height: 75%;
+        margin-bottom: -20%;
+    }
+    .kurs_h3 {
+        font-size: 16px;
+    }
+
+    .complication_kurs_forward {
+        padding: 15px;
+    }
+
+    .price {
+        font-size: 14px;
+    }
+
+    .buttom_free {
+        font-size: 12px;
+        padding: 5px 15px;
+        min-width: 60px;
+    }
+
+    .buttom_add {
+        font-size: 12px;
+        padding: 5px 15px;
+        min-width: 60px;
+        
+    }
+
+    .footer {
+        padding-top: 20px;
+    }
+    .start{
+        justify-content: flex-start;
+    }
+    .ul_block{
+        min-width: 125px;
+    }
+    .contact {
+        display: none;
+    }
+
+    .border {
+        border-top: 2px solid #ffff
+    }
+
+}
+@media (max-width:280px){
+    .buttom_section_1{
+        min-width: 200px;
+        max-width: 280px;
+        padding: 10px 0;
+        font-size: 16px;
+}
