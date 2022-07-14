@@ -153,12 +153,14 @@ body {
 
 .complication_kurs {
     justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: stretch;
 
 }
 
 .complication_kurs_block {
-    height: 468px;
-    width: 426px;
+    width: 468px;
+    width: 420px;
     flex-direction: column;
     margin: 20px 20px 20px 0;
 }
@@ -185,13 +187,17 @@ body {
     background: #E5E5E5;
     box-sizing: border-box;
     padding: 30px;
+
 }
 
 .kurs_img {
     width: 100%;
     height: 100%;
 }
-
+.description{
+    max-height: 100px;
+    overflow-x: auto;
+}
 .kurs_1 {
     background: #FAD1DB;
 }
@@ -211,6 +217,8 @@ body {
 .kurs_h3 {
     font-size: 21px;
     font-family: 'Circe_Bold';
+    text-overflow: ellipsis;
+    
 }
 
 #price_block {
