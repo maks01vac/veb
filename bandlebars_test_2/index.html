@@ -9,15 +9,18 @@
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 </head>
 <body>
-    <script id="entry-template" type="text/x-handlebars-template">
-        <div class="entry">
-          <h1>{{title}}</h1>
-          <div class="body">
-            {{body}}
-          </div>
-        </div>
-      </script>
-      <div class="outer"></div>
+  <script id="handlebars-demo" type="text/x-handlebars-template">
+  {{#each data}}
+  {{#with attributes}}
+    <p>{{this.price}}</p>
+    <p>{{this.title}}</p>
+    <p>{{this.cover_image_full.data.attributes.url}}</p>
+    <p>{{this.ui_tile_colour.data.attributes.hex}}</p>
+  {{/with}}
+  {{/each}}
+  </script>
+  <div class="app"></div>
+  
       <script src="js/index.js"></script>
 </body>
 

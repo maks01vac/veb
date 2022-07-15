@@ -4,4 +4,4 @@ var context = {
 };
 var template = Handlebars.compile(document.querySelector("#entry-template").innerHTML)
 var filed = template(context);
-document.querySelector('#outer').innerHTML = filed;
+document.querySelector('.outer').innerHTML = filed;
