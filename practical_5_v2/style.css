@@ -10,6 +10,9 @@
     padding: 0;
 }
 
+a,button{
+    font-family:inherit;
+}
 body {
     color: #272727;
     font-family: 'Circe';
@@ -139,12 +142,15 @@ body {
 
 .main_section_2 {
     background-color: #ffff;
-    flex-direction: column;
+    text-align: center;
 }
 
 .main_kurs {
     width: 100%;
     margin-top: 59px;
+}
+.main_new_kurs{
+    background-color: #6bd6ab;
 }
 
 .setion_2_h2 {
@@ -196,7 +202,7 @@ body {
 }
 .description{
     max-height: 100px;
-    overflow-x: auto;
+    overflow: hidden;
 }
 .kurs_1 {
     background: #FAD1DB;
@@ -250,7 +256,19 @@ body {
     min-width: 100px;
     text-align: center;
 }
-
+#button{
+    border:0;
+    min-width: 180px;
+    text-align: center;
+    font-size: 14px;
+    background: #FFE69B;
+    border-radius: 80px;
+    padding: 10px 0;
+    font-family: 'Circe';
+}
+#button:hover{
+    background: #f0cc61;
+}
 .footer {
     margin-top: 59px;
     background: #272727;

@@ -43,43 +43,37 @@
                     </div>
                 </div>
             </section>
-            <section class="main_section_2 ">
+            <section class="main_section_2 main_popular">
                 <div class="none flex_block">
                     <a href="#" class="nav_block_link nav_block_link_icon"><i
                             class="fa-solid fa-magnifying-glass"></i></a>
                     <a href="#" class="nav_block_link nav_block_link_icon"><i class="fa-solid fa-envelope"></i></a>
                     <a href="#" class="nav_block_link nav_block_link_icon"><i class="fa-solid fa-user-large"></i></a>
                 </div>
-                <div class="main_kurs container_default">
+
+
+                <div class="main_kurs  container_default">
                     <h2 class="setion_2_h2">ПОПУЛЯРНЫЕ КУРСЫ</h2>
-                    <div class="complication_kurs flex_block">
-                        <script id="handlebars-demo" type="text/x-handlebars-template">
-                            {{#each data}}
-                            {{#with attributes}}
-                            <div class="complication_kurs_block flex_block">
-                                <div class="complication_kurs_def complication_kurs_back">
-                                        <img src="{{this.cover_image_full.data.attributes.url}}" class="content_img">
-                                </div>
-                                <div class="complication_kurs_def flex_block complication_kurs_forward" style="background-color:{{this.ui_tile_colour.data.attributes.hex}} ;">
-                                    <div class="description">
-                                        <p class="kurs_p">автор: {{this.author.data.attributes.name}}</p>
-                                        <h3 class="kurs_h3">{{this.title}}</h3>
-                                    </div>
-                                    <div id="price_block">
-                                        {{#if this.free_course}}
-                                            <a href="#" class="buttom_free nav_block_link">бесплатно</a>
-                                            <a href="#" class="buttom_add nav_block_link nav_block_link_community">добавить</a>
-                                        {{else}}
-                                        <p class="price">{{this.price}} руб.</p>
-                                        <a href="#" class="buttom_add nav_block_link nav_block_link_community">купить</a>
-                                        {{/if}}
-                                    </div>
-                                </div>
-                            </div>
-                            {{/with}}
-                            {{/each}}
-                        </script>
+                    <div id="popular_kurs" class="complication_kurs flex_block">
+
                     </div>
+                </div>
+            </section>
+            <section class="main_section_2 main_new_kurs">
+                <div class="main_kurs  container_default">
+                    <h2 class="setion_2_h2">НОВИНКИ</h2>
+                    <div id="new_kurs" class="complication_kurs flex_block">
+
+                    </div>
+                </div>
+            </section>
+            <section class="main_section_2 main_all_kurs">
+                <div class="main_kurs container_default">
+                    <h2 class="setion_2_h2">ВСЕ КУРСЫ</h2>
+                    <div id="all_kurs" class="complication_kurs flex_block">
+                        
+                    </div>
+                    <button id="button">ЕЩЕ КУРСЫ</button>
                 </div>
             </section>
         </main>
@@ -131,8 +125,62 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer>           
     </div>
+                        <script id="sample_card_cource_all" type="text/x-handlebars-template">
+                            {{#each data}}
+                            {{#with attributes}}
+                            <div class="complication_kurs_block flex_block">
+                                <div class="complication_kurs_def complication_kurs_back">
+                                        <img src="{{this.cover_image_full.data.attributes.url}}" class="content_img">
+                                </div>
+                                <div class="complication_kurs_def flex_block complication_kurs_forward" style="background-color:{{this.ui_tile_colour.data.attributes.hex}} ;">
+                                    <div class="description">
+                                        <p class="kurs_p">автор: {{this.author.data.attributes.name}}</p>
+                                        <h3 class="kurs_h3">{{this.title}}</h3>
+                                    </div>
+                                    <div id="price_block">
+                                        {{#if this.free_course}}
+                                            <a href="#" class="buttom_free nav_block_link">бесплатно</a>
+                                            <a href="#" class="buttom_add nav_block_link nav_block_link_community">добавить</a>
+                                        {{else}}
+                                        <p class="price">{{this.price}} руб.</p>
+                                        <a href="#" class="buttom_add nav_block_link nav_block_link_community">купить</a>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                            {{/with}}
+                            {{/each}}
+                        </script>
+                        <script id="sample_card_cource_new_popular" type="text/x-handlebars-template">
+                            {{#each courses}}
+                            {{#with course}}
+                            <div class="complication_kurs_block flex_block">
+                                <div class="complication_kurs_def complication_kurs_back">
+                                        <img src="{{this.data.attributes.cover_image_full.data.attributes.url}}" class="content_img">
+                                </div>
+                                <div class="complication_kurs_def flex_block complication_kurs_forward" style="background-color:{{this.data.attributes.ui_tile_colour.data.attributes.hex}} ;">
+                                    <div class="description">
+                                        <p class="kurs_p">автор: {{this.data.attributes.author.data.attributes.name}}</p>
+                                        <h3 class="kurs_h3">{{this.data.attributes.title}}</h3>
+                                    </div>
+                                    <div id="price_block">
+                                        {{#if this.data.attributes.free_cource}}
+                                            <a href="#" class="buttom_free nav_block_link">бесплатно</a>
+                                            <a href="#" class="buttom_add nav_block_link nav_block_link_community">добавить</a>
+                                        {{else}}
+                                        <p class="price">{{this.data.attributes.price}} руб.</p>
+                                        <a href="#" class="buttom_add nav_block_link nav_block_link_community">купить</a>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                            {{/with}}
+                            {{/each}}
+                        </script>
+
+    <script src="js/createBlocks/createBlocks.js"></script> 
     <script src="js/index.js"></script>
 </body>
 
