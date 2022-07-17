@@ -1,13 +1,13 @@
 
 
-function addCourceBlocksAndFillsWithData() {
+async function addCourceBlocks() {
 
 
-    addAllCourceBlocksAndFillsWithData();
+   let privet = await addAllCourceBlocks();
 
 
-    addNewAndPopularCourceBlocksAndFillsWithData()
+    let poka = await addNewAndPopularCourceBlocks()
 
 }
 
-addCourceBlocksAndFillsWithData();
+addCourceBlocks();

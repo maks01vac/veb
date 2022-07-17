@@ -1,37 +1,33 @@
-async function hello(){
-    
-}
-
-async function addAllCourceBlocksAndFillsWithData() {
-    var pageNumber = 1;
-    var courceUrlAllBlocks = '/api/courses?populate[0]=author&populate[1]=cover_image_full&populate[2]=ui_tile_colour&populate[3]=categories&populate[4]=promo_page&pagination[pageSize]=9&pagination[page]=';
-    var coursesUrl = CONST.BASE_URL + courceUrlAllBlocks+pageNumber;
+async function courseDataRequest(URL_COURSES, pageNumber = '') {
+    let coursesUrl = CONST.BASE_URL + URL_COURSES + pageNumber;
     let response = await fetch(coursesUrl);
     let content = await response.json();
-    let CountPageCoursesData = Math.floor(content.meta.pagination.pageCount);
-    createCourceBlocksSample(CONST.ALL_COURSES_SAMPLE_CONTAINER,content,CONST.ALL_COURSES_HTML_CONTAINER_SELECTOR);
-    let btn = document.getElementById('button');
-    async function buttonClick(){
-        pageNumber++;
-        let courceUrlAllBlocks2 = '/api/courses?populate[0]=author&populate[1]=cover_image_full&populate[2]=ui_tile_colour&populate[3]=categories&populate[4]=promo_page&pagination[pageSize]=9&pagination[page]=';
-        let coursesUrl2 =CONST.BASE_URL + courceUrlAllBlocks2+pageNumber;
-        let responsePage = await fetch(coursesUrl2);
-        let contentPage = await responsePage.json();
-        createCourceBlocksSample(CONST.ALL_COURSES_SAMPLE_CONTAINER,contentPage,CONST.ALL_COURSES_HTML_CONTAINER_SELECTOR);
-        if(pageNumber>=CountPageCoursesData){ btn.classList.add('none');
-        }
-    }
-    document.getElementById('button').addEventListener('click',buttonClick);
+    return content;
 }
 
 
+async function addAllCourceBlocks() {
+    let pageNumberAllCourses = 1;
+    let buttonShowMore = document.getElementById('button');
+    let dataAllCourses = await courseDataRequest(CONST.URL_ALL_COURSES, pageNumberAllCourses)
+    createCourceBlocksSample(CONST.ALL_COURSES_SAMPLE_CONTAINER, dataAllCourses, CONST.ALL_COURSES_HTML_CONTAINER_SELECTOR);
+    let CountPageCoursesData = Math.floor(dataAllCourses.meta.pagination.pageCount);
+    async function buttonClick() {
+        pageNumberAllCourses++;
+        let dataAllCourses = await courseDataRequest(CONST.URL_ALL_COURSES, pageNumberAllCourses)
+        createCourceBlocksSample(CONST.ALL_COURSES_SAMPLE_CONTAINER, dataAllCourses, CONST.ALL_COURSES_HTML_CONTAINER_SELECTOR);
+        if (pageNumberAllCourses >= CountPageCoursesData) {
+            buttonShowMore.classList.add('none')
+        };
+    }
+    buttonShowMore.addEventListener('click', buttonClick);
+}
 
-async function addNewAndPopularCourceBlocksAndFillsWithData() {
-    let courceUrlNewAndPopular = '/api/course-promotions/?populate%5B0%5D=courses.course&populate%5B1%5D=courses.course.author&populate%5B2%5D=courses.course.cover_image_full&populate%5B3%5D=courses.course.cover_image_half&populate%5B4%5D=courses.course.ui_tile_colour&populate%5B5%5D=courses.course.promo_page';
-    let UrlNewAndPopularCource = CONST.BASE_URL + courceUrlNewAndPopular;
-    let responseNewAndPopular = await fetch(UrlNewAndPopularCource);
-    let jsonNewAndPopular = await responseNewAndPopular.json();
-    addNewAndPopularBlocks(jsonNewAndPopular);
-    
+
+async function addNewAndPopularCourceBlocks() {
+
+    let dataNewAndPopularCourses = await courseDataRequest(CONST.URL_NEW_AND_POPULAR_COURSES);
+
+    createNewAndPopularBlocks(dataNewAndPopularCourses);
 }
 

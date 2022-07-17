@@ -202,7 +202,7 @@ body {
 }
 .description{
     max-height: 100px;
-    overflow-x: auto;
+    overflow: hidden;
 }
 .kurs_1 {
     background: #FAD1DB;
