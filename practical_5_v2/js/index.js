@@ -3,10 +3,10 @@
 async function addCourceBlocks() {
 
 
-   let privet = await addAllCourceBlocks();
+   addAllCourceBlocks();
 
 
-    let poka = await addNewAndPopularCourceBlocks()
+   addNewAndPopularCourceBlocks()
 
 }
 

@@ -10,10 +10,10 @@ const CONST = {
 }
 
 function createCourceBlocksSample(idSampleContainer,data,idContainerHtml) {
-    var templateCources = document.querySelector(idSampleContainer).innerHTML;
-    var templateScript = Handlebars.compile(templateCources);
-    var fillTemplateData = templateScript(data);
-    var courceContainer = document.querySelector(idContainerHtml);
+    let templateCources = document.querySelector(idSampleContainer).innerHTML;
+    let templateScript = Handlebars.compile(templateCources);
+    let fillTemplateData = templateScript(data);
+    let courceContainer = document.querySelector(idContainerHtml);
     courceContainer.insertAdjacentHTML ('beforeend',fillTemplateData);
 }
 
