@@ -15,13 +15,16 @@ async function addAllCourceBlocks() {
     let CountPageCoursesData = Math.floor(dataAllCourses.meta.pagination.pageCount);
     async function buttonClick() {
         pageNumberAllCourses++;
+        buttonShowMore.classList.add('none');
         createCourceBlocksSample(CONST.LOADER_SAMPLE,'',CONST.ALL_COURSES_HTML_CONTAINER_SELECTOR);
-        let dataAllCourses = await courseDataRequest(CONST.URL_ALL_COURSES, pageNumberAllCourses)
+        let dataAllCourses = await courseDataRequest(CONST.URL_ALL_COURSES, pageNumberAllCourses);
         createCourceBlocksSample(CONST.ALL_COURSES_SAMPLE_CONTAINER, dataAllCourses, CONST.ALL_COURSES_HTML_CONTAINER_SELECTOR);
+        buttonShowMore.classList.remove('none');
         document.querySelector('.loader').remove();
         if (pageNumberAllCourses >= CountPageCoursesData) {
-            buttonShowMore.classList.add('none')
+            buttonShowMore.classList.add('none');
         };
+        
     }
     buttonShowMore.addEventListener('click', buttonClick);
 }
