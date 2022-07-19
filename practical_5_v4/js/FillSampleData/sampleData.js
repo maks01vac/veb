@@ -14,6 +14,7 @@ async function addAllCourceBlocks() {
 
     createAndInsertResultHtmlWithTemplatedData(CONST.LOADER_SAMPLE, '', CONST.ALL_COURSES_HTML_CONTAINER_SELECTOR);
     let dataAllCourses = await fetchData(CONST.URL_ALL_COURSES, pageNumberAllCourses);
+    console.log(dataAllCourses);
 
     createAndInsertResultHtmlWithTemplatedData(CONST.ALL_COURSES_SAMPLE_CONTAINER, dataAllCourses, CONST.ALL_COURSES_HTML_CONTAINER_SELECTOR);
 
