@@ -58,7 +58,7 @@ let view = {
     init: function (containerSelector) {
         this.containerSelector = containerSelector;
     },
-    renderCourseBlocks: function (htmlTemplateContainerId, data) {
+    renderCourseBlocks: function (htmlTemplateContainerId,targetHtmlContainerId, data) {
         let templateCources = document.querySelector(htmlTemplateContainerId).innerHTML;
 
         let templateScript = Handlebars.compile(templateCources);
@@ -66,8 +66,12 @@ let view = {
 
         let courceContainer = document.querySelector(targetHtmlContainerId);
         courceContainer.insertAdjacentHTML('beforeend', fillTemplateData);
+    },
+    renderAll: function (){
+        this.renderCourseBlocks(CONST.NEW_AND_POPULAR_COURSES_SAMPLE_CONTAINER, data.specialCourses.newCourses,);
+        this.renderCourseBlocks(CONST.NEW_AND_POPULAR_COURSES_SAMPLE_CONTAINER, data.specialCourses.popularCourses);
+        this.renderCourseBlocks(CONST.ALL_COURSES_SAMPLE_CONTAINER, data.allCources);
     }
-    renderAll: function ()
 };
 
 
