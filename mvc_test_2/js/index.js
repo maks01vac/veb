@@ -20,7 +20,9 @@ var View = {
 
     render: function (data) {
         let template = document.querySelector(CONST.NEW_AND_POPULAR_COURSES_SAMPLE_CONTAINER).innerHTML;
+        //console.log(template);
         let renderTemplate = Handlebars.compile(template);
+        
 
         let newCoursesHtml = renderTemplate(data.specialCourses.newCourses);
 
@@ -75,10 +77,10 @@ var PageController = {
         this.view.init(containerSelector);
 
         this.courseService = Object.create(Service);
+
     },
 
     refreshView: function () {
-        console.log('refreshView')
         this.view.render(this.model);
     },
 
@@ -88,19 +90,8 @@ var PageController = {
 
         this.model.specialCourses.newCourses = response.newCourses;
         this.model.specialCourses.popularCourses = response.popularCourses;
-
+        console.log( this.model);
         this.refreshView();
-
-        // var response = await req(CONST.URL_NEW_AND_POPULAR_COURSES);
-        // // TODO: handle NO data
-        //
-        // // transform response
-        // var popularCourses = response.data.find(d => d.attributes.promotionType === 'POPULAR');
-        // var newCourses = response.data.find(d => d.attributes.promotionType === 'NEW');
-        //
-        // // fill data
-        // this.model.specialCourses.newCourses = newCourses.attributes.courses;
-        // this.model.specialCourses.popularCourses = popularCourses.attributes.courses;
 
     }
 
@@ -109,4 +100,3 @@ var PageController = {
 var pageController1 = Object.create(PageController);
 pageController1.init('.container1');
 pageController1.loadSpecialCourses();
-// pageController1.refreshView();

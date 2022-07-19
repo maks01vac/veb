@@ -154,14 +154,14 @@
                             {{/with}}
                             {{/each}}
                         </script>
-    <script id="sample_card_cource_new_popular" type="text/x-handlebars-template">
-                            {{#each courses}}
+                        <script id="sample_card_cource_new_popular" type="text/x-handlebars-template">
+                            {{#each this}}
                             {{#with course}}
                             <div class="complication_kurs_block flex_block">
                                 <div class="complication_kurs_def complication_kurs_back">
                                         <img src="{{this.data.attributes.cover_image_full.data.attributes.url}}" class="content_img">
                                 </div>
-                                <div class="complication_kurs_def flex_block complication_kurs_forward" style="background-color:{{this.data.attributes.ui_tile_colour.data.attributes.hex}} ;">
+                                <div class="complication_kurs_def flex_block complication_kurs_forward" style="background-color:{{this.data.attributes.ui_tile_colour.data.attributes.hex}}">
                                     <div class="description">
                                         <p class="kurs_p">автор: {{this.data.attributes.author.data.attributes.name}}</p>
                                         <h3 class="kurs_h3">{{this.data.attributes.title}}</h3>
@@ -188,9 +188,9 @@
                             </div>
                         </script>
 
-    <script src="js/createBlocks/createBlocks.js"></script>
-    <script src="js/FillSampleData/sampleData.js"></script>
-    <script src="js/index.js"></script>
+    <!-- <script src="js/createBlocks/createBlocks.js"></script>
+    <script src="js/FillSampleData/sampleData.js"></script> -->
+    <script src="js/mvc.js"></script>
 </body>
 
 </html>

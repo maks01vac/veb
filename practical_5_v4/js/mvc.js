@@ -11,8 +11,8 @@ let CONST = {
     URL_NEW_AND_POPULAR_COURSES: '/api/course-promotions/?populate%5B0%5D=courses.course&populate%5B1%5D=courses.course.author&populate%5B2%5D=courses.course.cover_image_full&populate%5B3%5D=courses.course.cover_image_half&populate%5B4%5D=courses.course.ui_tile_colour&populate%5B5%5D=courses.course.promo_page',
 }
 
-async function req(path) {
-    let url = CONST.BASE_URL + path;
+async function req(path, pageNumber = '') {
+    let url = CONST.BASE_URL + path + pageNumber;
     let response = await fetch(url);
 
     return await response.json();
@@ -22,10 +22,10 @@ async function req(path) {
 let HomePageModel = {
 
     specialCourses: {
-        newCourses    : [],
+        newCourses: [],
         popularCourses: [],
     },
-    allCourses:{},
+    allCourses: [],
 };
 
 
@@ -34,8 +34,7 @@ let Service = {
 
     loadSpecialCourses: async function () {
         let responseNewAndPopularCourses = await req(CONST.URL_NEW_AND_POPULAR_COURSES);
-        let responseAllCourses = await req(CONST.URL_NEW_AND_POPULAR_COURSES + CONDITION_ALL_COURSES);
-
+        let responseAllCourses = await req(CONST.URL_ALL_COURSES, CONST.CONDITION_ALL_COURSES);
         // transform response
         let popularCourses = responseNewAndPopularCourses.data.find(d => d.attributes.promotionType === 'POPULAR');
         let newCourses = responseNewAndPopularCourses.data.find(d => d.attributes.promotionType === 'NEW');
@@ -49,59 +48,60 @@ let Service = {
             allCources: responseAllCourses,
         };
     }
-
-};
+}
 
 
 
 let view = {
-    init: function (containerSelector) {
-        this.containerSelector = containerSelector;
-    },
-    renderCourseBlocks: function (htmlTemplateContainerId,targetHtmlContainerId, data) {
-        let templateCources = document.querySelector(htmlTemplateContainerId).innerHTML;
+        renderCourseBlocks: function (htmlTemplateContainerId, targetHtmlContainerId, data) {
+            let templateCources = document.querySelector(htmlTemplateContainerId).innerHTML;
 
-        let templateScript = Handlebars.compile(templateCources);
-        let fillTemplateData = templateScript(data);
+            let templateScript = Handlebars.compile(templateCources);
+            let fillTemplateData = templateScript(data);
 
-        let courceContainer = document.querySelector(targetHtmlContainerId);
-        courceContainer.insertAdjacentHTML('beforeend', fillTemplateData);
-    },
-    renderAll: function (){
-        this.renderCourseBlocks(CONST.NEW_AND_POPULAR_COURSES_SAMPLE_CONTAINER, data.specialCourses.newCourses,);
-        this.renderCourseBlocks(CONST.NEW_AND_POPULAR_COURSES_SAMPLE_CONTAINER, data.specialCourses.popularCourses);
-        this.renderCourseBlocks(CONST.ALL_COURSES_SAMPLE_CONTAINER, data.allCources);
-    }
-};
+            let courceContainer = document.querySelector(targetHtmlContainerId);
+            courceContainer.insertAdjacentHTML('beforeend', fillTemplateData);
+        },
+        // renderAllCourses: function(){
+
+        // },
+        renderAll: function (data) {
+            this.renderCourseBlocks(CONST.NEW_AND_POPULAR_COURSES_SAMPLE_CONTAINER, CONST.NEW_COURSES_HTML_CONTAINER_SELECTOR, data.specialCourses.newCourses);
+            this.renderCourseBlocks(CONST.NEW_AND_POPULAR_COURSES_SAMPLE_CONTAINER, CONST.POPULAR_COURSES_HTML_CONTAINER_SELECTOR, data.specialCourses.popularCourses);
+            this.renderCourseBlocks(CONST.ALL_COURSES_SAMPLE_CONTAINER, data.allCources);
+        }
+    };
 
 
 
-let PageController = {
+    let PageController = {
 
-    init: function (containerSelector) {
-        this.model = Object.create(HomePageModel);
+        init: function () {
+            this.model = Object.create(HomePageModel);
 
-        this.view = Object.create(View);
-        this.view.init(containerSelector);
+            this.view = Object.create(View);
 
-        this.courseService = Object.create(Service);
-    },
+            this.courseService = Object.create(Service);
+        },
 
-    refreshView: function () {
-        console.log('refreshView')
-        this.view.render(this.model);
-    },
+        refreshView: function () {
+            console.log('refreshView')
+            this.view.renderAll(this.model);
+        },
 
-    loadSpecialCourses: async function () {
+        loadSpecialCourses: async function () {
 
-        let response = await this.courseService.loadSpecialCourses();
+            let response = await this.courseService.loadSpecialCourses();
+            console.log(response);
 
-        this.model.specialCourses.newCourses = response.specialCourses.newCourses;
-        this.model.specialCourses.popularCourses = response.specialCourses.popularCourses;
-        this.model.specialCourses.newCourses = response.allCourses;
+            this.model.specialCourses.newCourses = response.specialCourses.newCourses;
+            this.model.specialCourses.popularCourses = response.specialCourses.popularCourses;
+            this.model.specialCourses.newCourses = response.allCourses;
 
-        this.refreshView();
+            this.refreshView();
 
-    }
+        }
 
-};
+    };
+    var pageController1 = Object.create(PageController);
+    pageController1.loadSpecialCourses();
