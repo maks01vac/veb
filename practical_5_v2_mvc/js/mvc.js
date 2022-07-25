@@ -103,9 +103,7 @@ var ViewAllCourses = {
     onClickButtonNextPage: async function (func) {
         this.containerAllCourses.addEventListener('click', async function (event) {
             if (event.target.className == 'button')
-                console.log(func);
-                let pr = await func.bind(Controller);
-                pr();
+                await func()
         })
     }
 }
@@ -212,7 +210,7 @@ var Service = {
 
 
 var Controller = {
-    init:function () {
+    init: function () {
         this.model = Object.create(HomePageModel);
 
         this.service = Object.create(Service);
@@ -234,7 +232,6 @@ var Controller = {
         this.model.allCourses.pageCount = responseAllCourses.allCourses.pageCount;
         this.model.allCourses.pageNumber = Number(responseAllCourses.allCourses.pageNumber);
         this.model.allCourses.hasMoreData = responseAllCourses.allCourses.hasMoreData;
-        console.log(this.model);
 
         this.view.render(this.model);
 
@@ -243,13 +240,11 @@ var Controller = {
     loadAllCoursesNextPages: async function () {
         CONST.CONDITION_ALL_COURSES++;
 
-        console.log("работает");
-
         let responseAllCourses = await this.service.loadDataAllCourses(CONST.CONDITION_ALL_COURSES);
 
         this.model.allCourses.courseData.data.push.apply(this.model.allCourses.courseData.data, responseAllCourses.allCourses.courseData.data);
-
         this.model.allCourses.pageNumber = responseAllCourses.allCourses.pageNumber;
+        this.model.allCourses.hasMoreData = responseAllCourses.allCourses.hasMoreData;
 
         this.view.render(this.model);
 
