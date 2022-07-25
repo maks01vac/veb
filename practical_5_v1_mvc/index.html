@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <link href="style.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/963c0ac180.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <nav class="nav flex_block container_default">
+                <div class="nav_block flex_block nav_block_left"><img src="images/Vector.png"> </div>
+                <div class="nav_block flex_block nav_block_center">
+                    <a href="#" class="nav_block_link nav_link_center">ВЫБРАТЬ КУРС</a>
+                    <a href="#" class="nav_block_link nav_link_center nav_block_link_community">СООБЩЕСТВО</a>
+                </div>
+                <div class="nav_block flex_block nav_block_right">
+                    <a href="#" class="nav_block_link nav_block_link_icon"><i
+                            class="fa-solid fa-magnifying-glass"></i></a>
+                    <a href="#" class="nav_block_link nav_block_link_icon"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="#" class="nav_block_link nav_block_link_icon"><i class="fa-solid fa-user-large"></i></a>
+                </div>
+            </nav>
+        </header>
+        <main class="main">
+            <section class="main_1 flex_block">
+                <div class="main_section_1 flex_block container_default">
+                    <div class="Hello_block">
+                        <h1 class="Hello">Привет, Анастасия!</h1>
+                        <p class="p_section_1">У вас пока нет купленных и добавленных курсов. Перейдите на Главную и
+                            выберете
+                            курс по душе.</p>
+                        <a class="nav_block_link buttom_section_1" href="#">Подобрать курс</a>
+                    </div>
+                    <div class="img_section_1">
+                        <img src="images/Group.png">
+                    </div>
+                </div>
+            </section>
+            <section class="main_section_2 main_popular">
+                <div class="none flex_block">
+                    <a href="#" class="nav_block_link nav_block_link_icon"><i
+                            class="fa-solid fa-magnifying-glass"></i></a>
+                    <a href="#" class="nav_block_link nav_block_link_icon"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="#" class="nav_block_link nav_block_link_icon"><i class="fa-solid fa-user-large"></i></a>
+                </div>
+
+
+                <div class="main_kurs  container_default">
+                    <h2 class="setion_2_h2">ПОПУЛЯРНЫЕ КУРСЫ</h2>
+                    <div id="popular_kurs" class="complication_kurs flex_block">
+
+                    </div>
+                </div>
+            </section>
+            <section class="main_section_2 main_new_kurs">
+                <div class="main_kurs  container_default">
+                    <h2 class="setion_2_h2">НОВИНКИ</h2>
+                    <div id="new_kurs" class="complication_kurs flex_block">
+
+                    </div>
+                </div>
+            </section>
+            <section class="main_section_2 main_all_kurs">
+                <div class="main_kurs container_default">
+                    <h2 class="setion_2_h2">ВСЕ КУРСЫ</h2>
+                    <div id="all_kurs" class="complication_kurs flex_block" >
+
+                    </div>
+                    <button class="button">ЕЩЕ КУРСЫ</button>
+                </div>
+            </section>
+        </main>
+        <footer class="footer flex_block">
+            <div class="footer_box container_default flex_block ">
+                <div class="footer_half_box"><img src="images/Vector.png"></div>
+                <div class="start none footer_half_box">
+                    <div class="ul_block">
+                        <ul class="ul_def">
+                            <li>info@form.com</li>
+                            <li class="number">+7 888 888 88 88</li>
+                            <li class="number"><i class="fa-brands fa-instagram"></i>
+                                <i class="fa-brands fa-youtube"></i>
+                                <i class="fa-brands fa-tiktok"></i>
+                                <i class="fa-brands fa-vk"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border footer_half_box flex_block">
+                    <div class="ul_block">
+                        <ul class="ul_def">
+                            <li>Выбрать курс</li>
+                            <li>Новинки</li>
+                            <li>Зож</li>
+                            <li>Психология</li>
+                            <li>Развитие</li>
+                            <li>Образование</li>
+                        </ul>
+                    </div>
+                    <div class="ul_block">
+                        <ul class="ul_def">
+                            <li>Преподователи</li>
+                            <li>Ученикам</li>
+                            <li>Переводчикам</li>
+                            <li>ЧАТ</li>
+                        </ul>
+                    </div>
+                    <div class="contact ul_block">
+                        <ul class="ul_def">
+                            <li>info@form.com</li>
+                            <li class="number">+7 888 888 88 88</li>
+                            <li class="number"><i class="fa-brands fa-instagram"></i>
+                                <i class="fa-brands fa-youtube"></i>
+                                <i class="fa-brands fa-tiktok"></i>
+                                <i class="fa-brands fa-vk"></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script id="sample_card_cource_all" type="text/x-handlebars-template">
+                            {{#each data}}
+                            {{#with attributes}}
+                            <div class="complication_kurs_block flex_block">
+                                <div class="complication_kurs_def complication_kurs_back">
+                                        <img src="{{this.cover_image_full.data.attributes.url}}" class="content_img">
+                                </div>
+                                <div class="complication_kurs_def flex_block complication_kurs_forward" style="background-color:{{this.ui_tile_colour.data.attributes.hex}} ;">
+                                    <div class="description">
+                                        <p class="kurs_p">автор: {{this.author.data.attributes.name}}</p>
+                                        <h3 class="kurs_h3">{{this.title}}</h3>
+                                    </div>
+                                    <div id="price_block">
+                                        {{#if this.free_course}}
+                                            <a href="#" class="buttom_free nav_block_link">бесплатно</a>
+                                            <a href="#" class="buttom_add nav_block_link nav_block_link_community">добавить</a>
+                                        {{else}}
+                                        <p class="price">{{this.price}} руб.</p>
+                                        <a href="#" class="buttom_add nav_block_link nav_block_link_community">купить</a>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                            {{/with}}
+                            {{/each}}
+                            </div>
+                        </script>
+                        <script id="sample_card_cource_new_popular" type="text/x-handlebars-template">
+                            {{#each this}}
+                            {{#with course}}
+                            <div class="complication_kurs_block flex_block">
+                                <div class="complication_kurs_def complication_kurs_back">
+                                        <img src="{{this.data.attributes.cover_image_full.data.attributes.url}}" class="content_img">
+                                </div>
+                                <div class="complication_kurs_def flex_block complication_kurs_forward" style="background-color:{{this.data.attributes.ui_tile_colour.data.attributes.hex}}">
+                                    <div class="description">
+                                        <p class="kurs_p">автор: {{this.data.attributes.author.data.attributes.name}}</p>
+                                        <h3 class="kurs_h3">{{this.data.attributes.title}}</h3>
+                                    </div>
+                                    <div id="price_block">
+                                        {{#if this.data.attributes.free_cource}}
+                                            <a href="#" class="buttom_free nav_block_link">бесплатно</a>
+                                            <a href="#" class="buttom_add nav_block_link nav_block_link_community">добавить</a>
+                                        {{else}}
+                                        <p class="price">{{this.data.attributes.price}} руб.</p>
+                                        <a href="#" class="buttom_add nav_block_link nav_block_link_community">купить</a>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                            {{/with}}
+                            {{/each}}
+                        </script>
+                        <script id="sample_loader" type="text/x-handlebars-template">
+                            <div class="loader flex_block">
+                                <div>
+                                Подождите, загружается
+                                </div>
+                            </div>
+                        </script>
+
+    <script src="js/mvc.js"></script>
+</body>
+
+</html>

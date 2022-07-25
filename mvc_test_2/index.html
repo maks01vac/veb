@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="width:500px; margin:0 auto;">
+        <div class="container1">
+        </div>
+     </div>
+<script id="sample_card_cource_new_popular" type="text/x-handlebars-template">
+            {{#each this}}
+            {{#with course}}
+            <div class="complication_kurs_block flex_block">
+                <div class="complication_kurs_def complication_kurs_back">
+                        <img src="{{this.data.attributes.cover_image_full.data.attributes.url}}" class="content_img">
+                </div>
+                <div class="complication_kurs_def flex_block complication_kurs_forward" style="background-color:{{this.data.attributes.ui_tile_colour.data.attributes.hex}}">
+                    <div class="description">
+                        <p class="kurs_p">автор: {{this.data.attributes.author.data.attributes.name}}</p>
+                        <h3 class="kurs_h3">{{this.data.attributes.title}}</h3>
+                    </div>
+                    <div id="price_block">
+                        {{#if this.data.attributes.free_cource}}
+                            <a href="#" class="buttom_free nav_block_link">бесплатно</a>
+                            <a href="#" class="buttom_add nav_block_link nav_block_link_community">добавить</a>
+                        {{else}}
+                        <p class="price">{{this.data.attributes.price}} руб.</p>
+                        <a href="#" class="buttom_add nav_block_link nav_block_link_community">купить</a>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            {{/with}}
+            {{/each}}
+        </script>
+        <script src="js/index.js"></script>
+</body>
+
+</html>

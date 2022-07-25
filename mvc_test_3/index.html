@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container container-1">1</div>
+<br>
+<div class="container container-2">2</div>
+<br>
+<div class="container container-3">3</div>
+
+<script id="template-course-tile" type="text/x-handlebars-template">
+    <div class="course-tile">
+        <h1>title</h1>
+        <p>description</p>
+    </div>
+
+</script>
+
+<script id="template-loader" type="text/x-handlebars-template">
+    <div class="loader">loader</div>
+</script>
+
+
+<script>
+
+    var CourseTileView = {
+        init: function (viewTargetContainer) {
+            this.viewTargetContainer = viewTargetContainer;
+        },
+
+        render: async function () {
+
+            var that = this;
+            return new Promise(function (resolve, reject) {
+
+                setTimeout(function () {
+                    var template = document.querySelector('#template-course-tile').innerHTML;
+                    var target = document.querySelector(that.viewTargetContainer);
+                    target.insertAdjacentHTML('beforeend', template);
+
+                    resolve()
+                }, 1000)
+
+            });
+        },
+
+        destroy: function () {
+        }
+    };
+
+    var AllCoursesView = {
+
+        init: function (viewTargetContainer) {
+            this.viewTargetContainer = viewTargetContainer;
+
+            this.loaderView = Object.create(LoaderView);
+            this.loaderView.init(viewTargetContainer);
+
+            this.views = [];
+        },
+
+        render : async function (data) {
+            this.loaderView.render();
+
+            for (var i = 0; i < data.length; i++) {
+                var dataItem = data[i];
+
+                var v = Object.create(CourseTileView);
+                v.init(this.viewTargetContainer);
+
+                this.views.push(v);
+
+                await v.render(dataItem)
+            }
+
+            this.loaderView.destroy();
+        },
+        destroy: function () {
+
+        }
+    };
+
+
+    var LoaderView = {
+
+        init: function (viewTargetContainer) {
+            this.viewTargetContainer = viewTargetContainer;
+        },
+
+        render: function () {
+            var template = document.querySelector('#template-loader').innerHTML;
+            var target = document.querySelector(this.viewTargetContainer);
+            target.insertAdjacentHTML('beforeend', template)
+        },
+
+        destroy: function () {
+            var el = document.querySelector(`${this.viewTargetContainer} .loader`);
+            el.remove();
+        }
+    };
+
+    var Controller = {
+
+        init: function () {
+            this.api = Object.create(Service);
+
+            this.allCoursesView = Object.create(AllCoursesView);
+            this.allCoursesView.init('.container-3');
+        },
+
+        run: async function () {
+            let data = [1, 2, 3]; // ajax
+            
+            this.allCoursesView.render(data);
+        }
+    };
+
+    var Service = {
+        load: function () {
+
+            return new Promise(function (resolve, reject) {
+
+                setTimeout(function () {
+                    console.log('123')
+                    resolve(123);
+                }, 3000)
+
+            })
+        }
+    };
+
+    var c1 = Object.create(Controller);
+    c1.init();
+    c1.run();
+
+
+</script>
+</body>
+</html>
