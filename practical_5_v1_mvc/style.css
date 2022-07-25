@@ -266,7 +266,7 @@ body {
     min-width: 100px;
     text-align: center;
 }
-#button{
+.button{
     border:0;
     min-width: 180px;
     text-align: center;
@@ -276,7 +276,7 @@ body {
     padding: 10px 0;
     font-family: 'Circe';
 }
-#button:hover{
+.button:hover{
     background: #f0cc61;
 }
 .footer {

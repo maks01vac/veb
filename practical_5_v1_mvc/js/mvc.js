@@ -32,12 +32,12 @@ var View = {
         courceContainer.insertAdjacentHTML('beforeend', fillTemplateData);
     },
     onClickButtonAllCourses: async function (func) {
-        let btn = document.querySelector('#button');
+        let btn = document.querySelector('.button');
 
         btn.addEventListener('click', async function () {
-            btn.classList.add('none')
+            btn.classList.add('none');
             let br = await func();
-            btn.classList.remove('none')
+            btn.classList.remove('none');
 
         })
 
@@ -62,7 +62,7 @@ var HomePageModel = {
 var Service = {
 
     loadCourses: async function () {
-        
+
         var response = await req(CONST.URL_NEW_AND_POPULAR_COURSES);
         let responseAllCourses = await req(CONST.URL_ALL_COURSES, CONST.CONDITION_ALL_COURSES);
         // TODO: handle NO data
@@ -117,19 +117,28 @@ var PageController = {
 
         let loader = document.querySelectorAll(CONST.LOADER_CLASS_NAME);
         loader.forEach(loaderNumber => loaderNumber.remove());
-        
+
         this.view.onClickButtonAllCourses(async function () {
-            CONST.CONDITION_ALL_COURSES++;
 
-            that.view.renderTemplate(CONST.LOADER_SAMPLE, CONST.ALL_COURSES_HTML_CONTAINER_SELECTOR);
+            
 
-            let pageNextResponseAllCourses = await req(CONST.URL_ALL_COURSES, CONST.CONDITION_ALL_COURSES);
+            try {
+                CONST.CONDITION_ALL_COURSES++;
 
-            that.view.renderTemplate(CONST.ALL_COURSES_SAMPLE_CONTAINER, CONST.ALL_COURSES_HTML_CONTAINER_SELECTOR, pageNextResponseAllCourses);
+                that.view.renderTemplate(CONST.LOADER_SAMPLE, CONST.ALL_COURSES_HTML_CONTAINER_SELECTOR);
 
-            document.querySelector(CONST.LOADER_CLASS_NAME).remove();
+                let pageNextResponseAllCourses = await req(CONST.URL_ALL_COURSES, CONST.CONDITION_ALL_COURSES);
 
-            if (CONST.CONDITION_ALL_COURSES >= pageNextResponseAllCourses.meta.pagination.pageCount) btn.remove();
+                that.view.renderTemplate(CONST.ALL_COURSES_SAMPLE_CONTAINER, CONST.ALL_COURSES_HTML_CONTAINER_SELECTOR, pageNextResponseAllCourses);
+
+                document.querySelector(CONST.LOADER_CLASS_NAME).remove();
+
+                if (CONST.CONDITION_ALL_COURSES >= pageNextResponseAllCourses.meta.pagination.pageCount) document.querySelector('#button').remove();
+            } catch {
+                alert('ошибка, попробуйте еще')
+            }
+
+
         });
     },
 };

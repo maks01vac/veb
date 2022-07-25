@@ -20,15 +20,28 @@ async function req(path, pageNumber) {
 }
 
 
-function renderTemplate(htmlTemplateContainerId, targetHtmlContainerId, data) {
+function renderTemplate(htmlTemplateContainerId, targetHtmlContainerId, data, createContainer = null) {
 
     let templateCources = document.querySelector(htmlTemplateContainerId).innerHTML;
-
     let templateScript = Handlebars.compile(templateCources);
     let fillTemplateData = templateScript(data);
 
-    let courceContainer = document.querySelector(targetHtmlContainerId);
-    courceContainer.insertAdjacentHTML('beforeend', fillTemplateData);
+    if (createContainer != null) {
+
+
+        createContainer.innerHTML = fillTemplateData;
+    }
+    else {
+        createContainer = document.createElement('div');
+
+        createContainer.innerHTML = fillTemplateData;
+
+        let courceContainer = document.querySelector(targetHtmlContainerId);
+
+        courceContainer.append(createContainer);
+    }
+
+    return createContainer;
 }
 
 var LoaderView = {
@@ -41,40 +54,58 @@ var LoaderView = {
     },
 }
 
-var ViewButtonNext = {
+// var ViewButtonNext = {
 
-    init: function (idTemplateContainer, targetHtmlContainerId) {
+//     init: function (idTemplateContainer, targetHtmlContainerId) {
 
-        this.idTemplateContainer = idTemplateContainer;
-        this.targetHtmlContainerId = targetHtmlContainerId;
-    },
-    render: function () {
+//         this.idTemplateContainer = idTemplateContainer;
+//         this.targetHtmlContainerId = targetHtmlContainerId;
+//     },
+//     render: function () {
 
-        renderTemplate(this.idTemplateContainer, this.targetHtmlContainerId);
+//         renderTemplate(this.idTemplateContainer, this.targetHtmlContainerId);
 
-    }
+//     },
 
-}
+// }
 
 var ViewAllCourses = {
     init: function (idTemplateContainerAllcourses, idTargetContainerAllCourses) {
+        this.loaderAllCourses = Object.create(LoaderView);
+        this.loaderAllCourses.init(CONST.LOADER_SAMPLE, idTargetContainerAllCourses);
 
         this.idTemplateContainerAllcourses = idTemplateContainerAllcourses;
         this.idTargetContainerAllCourses = idTargetContainerAllCourses;
 
-        this.buttonNextPage = Object.create(ViewButtonNext);
-        this.buttonNextPage.init('#template_button', idTargetContainerAllCourses)
+        this.containerAllCourses = document.createElement('div');
+        this.wasRendered = false;
 
+    },
+
+    render2: function (data) {
+        let templateCources = document.querySelector(this.idTemplateContainerAllcourses).innerHTML;
+        let templateScript = Handlebars.compile(templateCources);
+        let fillTemplateData = templateScript(data);
+        this.containerAllCourses.innerHTML = fillTemplateData;
+
+        if (this.wasRendered === false) {
+            let courceContainer = document.querySelector(this.idTargetContainerAllCourses);
+            courceContainer.append(this.containerAllCourses);
+            this.wasRendered = true;
+        }
     },
     render: function (data) {
-        renderTemplate(this.idTemplateContainerAllcourses, this.idTargetContainerAllCourses, data);
-        this.buttonNextPage.render();
+
+        this.containerAllCourses = renderTemplate(this.idTemplateContainerAllcourses, this.idTargetContainerAllCourses, data, this.containerAllCourses);
 
     },
-    onClickButtonNextPage: function (func) {
-        let btn = document.querySelector('#button');
-        btn.addEventListener('click', function () {
-            func();
+
+    onClickButtonNextPage: async function (func) {
+        this.containerAllCourses.addEventListener('click', async function (event) {
+            if (event.target.className == 'button')
+                console.log(func);
+                let pr = await func.bind(Controller);
+                pr();
         })
     }
 }
@@ -82,17 +113,20 @@ var ViewAllCourses = {
 
 var ViewPopularAndNewCourses = {
     init: function (idTemplateContainerNewcourses, targetHtmlContainerId) {
-        
+        this.loaderNewAndPopularCourses = Object.create(LoaderView);
+        this.loaderNewAndPopularCourses.init(CONST.LOADER_SAMPLE, targetHtmlContainerId);
+
         this.idTemplateContainerNewcourses = idTemplateContainerNewcourses;
         this.targetHtmlContainerId = targetHtmlContainerId;
     },
     render: function (data) {
-        renderTemplate(this.idTemplateContainerNewcourses, this.targetHtmlContainerId, data)
+
+        this.containerNewAndPopularCourses = renderTemplate(this.idTemplateContainerNewcourses, this.targetHtmlContainerId, data, this.containerNewAndPopularCourses);
     }
 }
 
 var View = {
-    init: function () {
+    init: async function (onClick) {
 
         this.viewPopularCourses = Object.create(ViewPopularAndNewCourses);
         this.viewPopularCourses.init('#sample_card_cource_new_popular', '#popular_kurs');
@@ -102,6 +136,8 @@ var View = {
 
         this.viewAllCourses = Object.create(ViewAllCourses);
         this.viewAllCourses.init('#sample_card_cource_all', '#all_kurs');
+        this.viewAllCourses.onClickButtonNextPage(onClick);
+
 
     },
     render: function (data) {
@@ -110,10 +146,11 @@ var View = {
 
         this.viewNewCourses.render(data.specialCourses.newCourses);
 
-        this.viewAllCourses.render(data.allCourses);
+        this.viewAllCourses.render2(data.allCourses);
 
-    }
+    },
 }
+
 
 
 var HomePageModel = {
@@ -122,7 +159,9 @@ var HomePageModel = {
         newCourses: [],
         popularCourses: [],
     },
-    allCourses: {},
+    allCourses: {
+        courseData: {}
+    },
 };
 
 
@@ -131,22 +170,35 @@ var HomePageModel = {
 
 
 var Service = {
-    loadDataCourses: async function () {
-
+    loadDataNewAndPopularCourses: async function () {
         var response = await req(CONST.URL_NEW_AND_POPULAR_COURSES);
-        let responseAllCourses = await req(CONST.URL_ALL_COURSES, CONST.CONDITION_ALL_COURSES);
 
         var popularCourses = response.data.find(d => d.attributes.promotionType === 'POPULAR');
         var newCourses = response.data.find(d => d.attributes.promotionType === 'NEW');
         var relatedCourses = response.data.find(d => d.attributes.promotionType === 'RELATED');
+
 
         return {
             specialCourses: {
                 popularCourses: popularCourses.attributes.courses,
                 newCourses: newCourses.attributes.courses,
                 relatedCourses: relatedCourses.attributes.courses
-            },
-            allCourses: responseAllCourses,
+            }
+        }
+
+    },
+    loadDataAllCourses: async function (conditionAllCourses) {
+
+        let responseAllCourses = await req(CONST.URL_ALL_COURSES, conditionAllCourses);
+
+        return {
+            allCourses: {
+                courseData: responseAllCourses,
+                pageNumber: responseAllCourses.meta.pagination.page,
+                pageCount: responseAllCourses.meta.pagination.pageCount,
+                hasMoreData: responseAllCourses.meta.pagination.page < responseAllCourses.meta.pagination.pageCount ? true : false,
+            }
+
         }
 
     }
@@ -160,33 +212,51 @@ var Service = {
 
 
 var Controller = {
-    init: function () {
-        this.view = Object.create(View);
-
+    init:function () {
         this.model = Object.create(HomePageModel);
 
         this.service = Object.create(Service);
+
+        this.view = Object.create(View);
+        this.view.init(this.loadAllCoursesNextPages.bind(this));
+
     },
 
-    refreshView: function () {
-        this.view.render(this.model);
-    },
+    updateData: async function () {
 
-    updateDate: async function () {
-        let response = await this.service.loadDataCourses();
-        console.log(response);
+        let responseNewAndPopular = await this.service.loadDataNewAndPopularCourses();
+        let responseAllCourses = await this.service.loadDataAllCourses(CONST.CONDITION_ALL_COURSES);
 
-        this.model.specialCourses.newCourses = response.specialCourses.newCourses;
-        this.model.specialCourses.popularCourses = response.specialCourses.popularCourses;
-        this.model.allCourses = response.allCourses;
+        this.model.specialCourses.newCourses = responseNewAndPopular.specialCourses.newCourses;
+        this.model.specialCourses.popularCourses = responseNewAndPopular.specialCourses.popularCourses;
+
+        this.model.allCourses.courseData = responseAllCourses.allCourses.courseData;
+        this.model.allCourses.pageCount = responseAllCourses.allCourses.pageCount;
+        this.model.allCourses.pageNumber = Number(responseAllCourses.allCourses.pageNumber);
+        this.model.allCourses.hasMoreData = responseAllCourses.allCourses.hasMoreData;
         console.log(this.model);
 
-        this.refreshView();
-    }
+        this.view.render(this.model);
 
+
+    },
+    loadAllCoursesNextPages: async function () {
+        CONST.CONDITION_ALL_COURSES++;
+
+        console.log("работает");
+
+        let responseAllCourses = await this.service.loadDataAllCourses(CONST.CONDITION_ALL_COURSES);
+
+        this.model.allCourses.courseData.data.push.apply(this.model.allCourses.courseData.data, responseAllCourses.allCourses.courseData.data);
+
+        this.model.allCourses.pageNumber = responseAllCourses.allCourses.pageNumber;
+
+        this.view.render(this.model);
+
+    }
 }
 
 let pageController = Object.create(Controller);
 pageController.init();
-pageController.updateDate();
+pageController.updateData();
 

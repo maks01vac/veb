@@ -73,7 +73,6 @@
                     <div id="all_kurs" class="complication_kurs flex_block">
 
                     </div>
-    
                 </div>
             </section>
         </main>
@@ -129,32 +128,38 @@
     </div>
 
     <script id="sample_card_cource_all" type="text/x-handlebars-template">
-                            {{#each data}}
-                            {{#with attributes}}
-                            <div class="complication_kurs_block flex_block">
-                                <div class="complication_kurs_def complication_kurs_back">
-                                        <img src="{{this.cover_image_full.data.attributes.url}}" class="content_img">
-                                </div>
-                                <div class="complication_kurs_def flex_block complication_kurs_forward" style="background-color:{{this.ui_tile_colour.data.attributes.hex}} ;">
-                                    <div class="description">
-                                        <p class="kurs_p">автор: {{this.author.data.attributes.name}}</p>
-                                        <h3 class="kurs_h3">{{this.title}}</h3>
-                                    </div>
-                                    <div id="price_block">
-                                        {{#if this.free_course}}
-                                            <a href="#" class="buttom_free nav_block_link">бесплатно</a>
-                                            <a href="#" class="buttom_add nav_block_link nav_block_link_community">добавить</a>
-                                        {{else}}
-                                        <p class="price">{{this.price}} руб.</p>
-                                        <a href="#" class="buttom_add nav_block_link nav_block_link_community">купить</a>
-                                        {{/if}}
-                                    </div>
-                                </div>
+        <div class="complication_kurs flex_block">
+            {{#each courseData.data}}
+                {{#with attributes}}
+                    <div class="complication_kurs_block flex_block">
+                        <div class="complication_kurs_def complication_kurs_back">
+                            <img src="{{this.cover_image_full.data.attributes.url}}" class="content_img">
+                        </div>
+                        <div class="complication_kurs_def flex_block complication_kurs_forward" style="background-color:{{this.ui_tile_colour.data.attributes.hex}} ;">
+                            <div class="description">
+                                <p class="kurs_p">автор: {{this.author.data.attributes.name}}</p>
+                                <h3 class="kurs_h3">{{this.title}}</h3>
                             </div>
-                            {{/with}}
-                            {{/each}}
-                        </script>
+                            <div id="price_block">
+                            {{#if this.free_course}}
+                                <a href="#" class="buttom_free nav_block_link">бесплатно</a>
+                                <a href="#" class="buttom_add nav_block_link nav_block_link_community">добавить</a>
+                            {{else}}
+                                <p class="price">{{this.price}} руб.</p>
+                                <a href="#" class="buttom_add nav_block_link nav_block_link_community">купить</a>
+                            {{/if}}
+                            </div>
+                        </div>
+                    </div>  
+                {{/with}}
+            {{/each}}
+        </div>
+        {{#if hasMoreData}}
+        <button class="button">ЕЩЕ КУРСЫ</button>
+        {{/if}}
+    </script>
     <script id="sample_card_cource_new_popular" type="text/x-handlebars-template">
+                        <div class="complication_kurs flex_block">
                             {{#each this}}
                             {{#with course}}
                             <div class="complication_kurs_block flex_block">
@@ -179,6 +184,7 @@
                             </div>
                             {{/with}}
                             {{/each}}
+                        </div>
                         </script>
     <script id="sample_loader" type="text/x-handlebars-template">
                             <div class="loader flex_block">
@@ -188,8 +194,8 @@
                             </div>
                         </script>
     <script id="template_button" type="text/x-handlebars-template">
-        <button id="button">ЕЩЕ КУРСЫ</button>
-    </script>  
+        <button class="button">ЕЩЕ КУРСЫ</button>
+    </script>
 
     <script src="js/mvc.js"></script>
 

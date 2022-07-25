@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+
+    <script>
+
+        var BaseView = {
+            init: function(){},
+        };
+
+        var v1 = Object.create(BaseView);
+        var v2 = Object.create(BaseView);
+        var v3 = Object.create(BaseView);
+
+        debugger;
+
+    </script>
+
+    <!-- <script>
+
+        var people = [{}, {}, {}];
+
+        var printFullName1 = function (p) {
+            console.log(`${p.first} ${p.last}`);
+        }
+
+        var person = {
+            first: 'Alex',
+
+            last: 'Munro',
+        };
+
+        var basePerson = {
+            printFullName2: function () {
+                console.log(`${this.first} ${this.last}`);
+            },
+
+            f1: null,
+            f2: null,
+            f3: null,
+            f4: null,
+        };
+
+        // mixing manually
+        // person.printFullName3 = basePerson.printFullName2;
+        
+        // mixing with Object.assign();
+        // var advancedPerson = Object.assign({}, person, basePerson);
+
+
+    </script> -->
+
+    <!-- <script>
+
+        function f1() {
+            console.log(this);
+        }
+
+        f1.prototype = { name: 'custom proto' };
+
+        // f1();
+
+        // var fex1 = new f1();
+
+        // var fex2 = new f1();
+        // fex();
+
+        var o1 = {
+            name: "o1",
+
+            f2: function () {
+                console.log(this);
+            },
+
+            f3: function () {
+                this.f2();
+            },
+
+            f4: function () {
+                var c = this.f2;
+                c();
+            }
+        };
+
+
+        // o1.f2();
+
+        // o1.f3();
+
+        // o1.f4();
+
+        // var b = o1.f2;
+        // b();
+
+
+
+        var BaseView = {
+            name1: 'base view',
+
+            render: function () {
+                // console.log('base view render');
+                console.log(this);
+            }
+        };
+
+        // BaseView.render();
+
+        var loaderView = Object.create(BaseView);
+        loaderView.name2 = "instance view"
+
+        // console.log(loaderView);
+
+        // loaderView.render();
+
+        var lf = loaderView.render.bind(loaderView);
+        lf();
+
+
+    </script> -->
+
+</body>
+
+</html>
