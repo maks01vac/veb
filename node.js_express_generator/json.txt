@@ -1,0 +1,40 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": {
+                "firstname": "Maks",
+                "lastname": "Glazkov"
+            },
+            "Username": "Maks01vac",
+            "Username1": "Maks02vac"
+        },
+        {
+            "id": 2,
+            "name": {
+                "firstname": "Maks",
+                "lastname": "Glazkov"
+            },
+            "Username": "Maks01vac",
+            "Username1": "Maks02vac"
+        },
+        {
+            "id": 3,
+            "name": {
+                "firstname": "Maks",
+                "lastname": "Glazkov"
+            },
+            "Username": "Maks01vac",
+            "Username1": "Maks02vac"
+        },
+        {
+            "id": 4,
+            "name": {
+                "firstname": "Maks",
+                "lastname": "Glazkov"
+            },
+            "Username": "Maks01vac",
+            "Username1": "Maks02vac"
+        }
+    ]
+}
