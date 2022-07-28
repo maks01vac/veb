@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-var courseController = require('../controllers/courseController')
+var courseController = require('../controllers/courseController');
+const courseService = require('../services/courseServise');
 
 
 ///////////////////////////////////////////Data/////////////////////////////////////////////////////////////////////
@@ -95,7 +96,7 @@ function enumirationValue(dataTemp, dataReq) {
 
 
 function insertIdData(data) {
-  idCourse = 1
+  idCourse = 0;
   data.forEach(elem => {
       if (elem.id > idCourse) {
           idCourse = elem.id
@@ -131,38 +132,11 @@ function existenseId(data, idBlock) {
 
 router.get('/courses', courseController.getAll);
 
-router.get('/courses/:id', function (req, res, next) {
-  const id = Number(req.params.id);
-
-  if (!isNaN(id)) {
-    if (existenseId(dataArray.data, id)) {
-        dataArray.data.forEach((elem, index) => {
-          if (elem.id === id) {
-            res.send(dataArray.data[index])
-          }
-        });
-    }
-    else {
-      res.status(404).send('Блока с таким id нету')
-    }
-  }
-  else {
-    res.status(400).send('Wrong type')
-  }
-});
+router.get('/courses/:id', courseController.getSingleCourse);
 
 
-router.post('/courses', function (req, res, next) {
-  let reqBody = req.body;
-  let resultInsertData = checkAndInsertData(templateData,dataArray.data,reqBody)
-  if(resultInsertData){
-    res.status(200).send('Данные успешно добавлены')
-  }
-  else{
-    res.status(404).send('Неправильно введенные данные')
-  }
+router.post('/courses', courseController.post);
 
-});
 
 
 router.put('/courses/:id', function (req, res, next) {
@@ -180,27 +154,6 @@ router.delete('/courses', function (req, res, next) {
   res.send({ name: "delete all courses" });
 });
 
-
-
-router.delete('/courses/:id', function (req, res, next) {
-  const id = Number(req.params.id);
-
-  if (!isNaN(id)) {
-    if (existenseId(dataArray.data, id)) {
-      dataArray.data.forEach((elem, index) => {
-        if (elem.id === id) {
-          dataArray.data.splice(index, 1)
-        }
-      });
-      res.send(`Блок с id:${id} удален`);
-    }
-    else {
-      res.status(404).send('Блока с таким id нету')
-    }
-  }
-  else {
-    res.status(400).send('Wrong type')
-  }
-});
+router.delete('/courses/:id',courseController.delete);
 
 module.exports = router;
