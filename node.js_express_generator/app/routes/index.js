@@ -1,21 +1,17 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+var courseController = require('../controllers/courseController')
+
+
+///////////////////////////////////////////Data/////////////////////////////////////////////////////////////////////
 let templateData ={
-  id: 3,
   "name": {
     "firstname": "Maks",
     "lastname": "Glazkov"
   },
   "Username": "Maks01vac",
 }
-
-function r(i){
-  if(i==1) return 1
-  return i+r(i-1)
-}
-console.log(r(20));
 
 let dataArray = {
   data: [
@@ -53,44 +49,72 @@ let dataArray = {
     }
   ]
 }
-
-const dataTest = {
  
-  "Username": 1,
-  "name": {
-    "firstname":"Max",
-    "lastname": "Glazkov"
-  }, 
-  id: 3,
-}
+
+///////////////////////////////////////////////////////Function////////////////////////////////////////////////////////////////////////////////////
 
 
-let oneData = dataArray.data[0];
+function enumirationValue(dataTemp, dataReq) {
+  let comparisonResult = true;
+  const lengthDataTemp = Object.keys(dataTemp).length
+  const lengthDataReq = Object.keys(dataReq).length
 
-function objectСomparison(dataReq,dataBase) {
-  let countDef = 0;
-  let countProp = 0;
-  for (let property in dataBase) {
-    countDef++
-    if(typeof property === "object"){
-      objectСomparison(property)
-    }
-   
-    for (key in dataReq) {
+  if (lengthDataTemp === 0 || lengthDataReq === 0) {
+      return false
+  }
 
-      if (key === property && typeof dataReq[key] === typeof dataBase[property]) {
-        countProp ++;
+  for (let propertyObject in dataReq) {
+
+
+
+      if (typeof dataReq[propertyObject] === "string"
+          && dataReq[propertyObject].length > 20) {
+          return false
       }
-    } 
 
+      if (propertyObject in dataTemp && lengthDataTemp === lengthDataReq &&
+          typeof dataTemp[propertyObject] === typeof dataReq[propertyObject]) {
+
+          if (typeof dataReq[propertyObject] === "object") {
+              var recursiveResult = enumirationValue(dataTemp[propertyObject], dataReq[propertyObject])
+              comparisonResult = recursiveResult
+          }
+          else if (dataTemp[propertyObject].trim() == '' || dataReq[propertyObject].trim() == '') {
+                  return false
+          }
+      }
+
+      else {
+
+          return false
+      }
   }
-
-  if (countProp === countDef) {
-    return true;
-  }
-
-return false;
+  return comparisonResult
 }
+
+
+
+function insertIdData(data) {
+  idCourse = 1
+  data.forEach(elem => {
+      if (elem.id > idCourse) {
+          idCourse = elem.id
+      }
+  });
+  return idCourse + 1
+}
+
+
+function checkAndInsertData(tempData, data, dataReq) {
+  if (enumirationValue(tempData, dataReq)) {
+      dataReq.id = insertIdData(data)
+      data.push(dataReq);
+      return true
+  }
+  else return false
+
+}
+
 
 
 
@@ -102,16 +126,21 @@ function existenseId(data, idBlock) {
   return false
 }
 
-router.get('/courses', function (req, res, next) {
-  res.send(dataArray.data);
-});
+
+/////////////////////////////////////////////////////Route///////////////////////////////////////////////////////////////////////////
+
+router.get('/courses', courseController.getAll);
 
 router.get('/courses/:id', function (req, res, next) {
   const id = Number(req.params.id);
 
   if (!isNaN(id)) {
     if (existenseId(dataArray.data, id)) {
-      res.send(dataArray.data[id - 1])
+        dataArray.data.forEach((elem, index) => {
+          if (elem.id === id) {
+            res.send(dataArray.data[index])
+          }
+        });
     }
     else {
       res.status(404).send('Блока с таким id нету')
@@ -125,19 +154,16 @@ router.get('/courses/:id', function (req, res, next) {
 
 router.post('/courses', function (req, res, next) {
   let reqBody = req.body;
-  if(objectСomparison(reqBody,templateData)){
-    dataArray.data.push(reqBody)
-    res.send('Прошло успешно')
+  let resultInsertData = checkAndInsertData(templateData,dataArray.data,reqBody)
+  if(resultInsertData){
+    res.status(200).send('Данные успешно добавлены')
   }
   else{
-    res.send('ошибка')
+    res.status(404).send('Неправильно введенные данные')
   }
 
 });
 
-// router.put('/courses', function (req, res, next) {
-//   res.send({ name: "put all courses" });
-// });
 
 router.put('/courses/:id', function (req, res, next) {
   const id = Number(req.params.id);
@@ -153,6 +179,8 @@ router.put('/courses/:id', function (req, res, next) {
 router.delete('/courses', function (req, res, next) {
   res.send({ name: "delete all courses" });
 });
+
+
 
 router.delete('/courses/:id', function (req, res, next) {
   const id = Number(req.params.id);

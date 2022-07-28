@@ -1,9 +1,9 @@
 let templateData = {
-    "Username": "Maks01vac",
+    "Username":15,
     "name": {
         "firstname": "Maks",
         "lastname": "Glazkov"
-    },
+    }
 }
 
 let dataArray = {
@@ -59,7 +59,7 @@ const dataTest2 = {
     },
 }
 
-function idData(data) {
+function insertIdData(data) {
     idCourse = 1
     data.forEach(elem => {
         if (elem.id > idCourse) {
@@ -72,22 +72,33 @@ function enumirationValue(dataDef, dataReq) {
     let rt = true;
     const len_obj1 = Object.keys(dataDef).length
     const len_obj2 = Object.keys(dataReq).length
+
+    if (len_obj1 === 0 || len_obj2 === 0) {
+        return false
+    }
+
     for (let property in dataReq) {
 
-        if(typeof dataReq[property] === "string" && dataReq[property].length>20){
+
+
+        if (typeof dataReq[property] === "string"
+            && dataReq[property].length > 20) {
             return false
         }
 
         if (property in dataDef && len_obj1 === len_obj2 &&
             typeof dataDef[property] === typeof dataReq[property]) {
 
-            if (typeof dataReq[property] === "object") {
 
+            if (typeof dataReq[property] === "object") {
                 var objRt = enumirationValue(dataDef[property], dataReq[property])
                 rt = objRt
-
+            }
+            else if (typeof dataDef ==="string" && (dataDef[property].trim() == '' || dataReq[property].trim() == '')) {
+                    return false
             }
         }
+
         else {
 
             return false
@@ -96,13 +107,13 @@ function enumirationValue(dataDef, dataReq) {
     return rt
 }
 console.log(enumirationValue(templateData, dataTest));
-console.log(idData(dataArray.data))
+console.log(insertIdData(dataArray.data))
 
 console.log(dataArray.data)
 
-function okei(tempData, data, dataReq) {
+function checkAndPasteData(tempData, data, dataReq) {
     if (enumirationValue(tempData, dataReq)) {
-        dataReq.id = idData(data)
+        dataReq.id = insertIdData(data)
         data.push(dataReq);
         console.log('Имя добавлено')
     }
@@ -110,12 +121,20 @@ function okei(tempData, data, dataReq) {
         console.log('Неправильно введенные данные');
     }
 }
-okei(templateData, dataArray.data, dataTest)
+checkAndPasteData(templateData, dataArray.data, dataTest)
 console.log(dataArray.data)
-okei(templateData, dataArray.data, dataTest2)
+checkAndPasteData(templateData, dataArray.data, dataTest2)
 console.log(dataArray.data)
 for (let property in dataTest) {
-    if(typeof dataTest[property] === "string")
-    console.log(dataTest[property].length)
+    if (typeof dataTest[property] === "string")
+        console.log(dataTest[property].length)
 }
 
+console.log(enumirationValue(templateData, {
+    "Username": 27,
+    "name": {
+        "firstname":"   ",
+        "lastname": "Glazkov"
+    }
+}
+))
