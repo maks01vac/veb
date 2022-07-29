@@ -37,25 +37,95 @@ courseStore.model = {
   ]
 }
 
-courseStore.template = {
-  "name": {
-    "firstname": "Maks",
-    "lastname": "Glazkov"
-  },
-  "Username": "Maks01vac",
+
+
+
+
+courseStore.createNewId = function () {
+  idCourse = 0
+  courseStore.model.data.forEach(elem => {
+    if (elem.id > idCourse) {
+      idCourse = elem.id
+    }
+  });
+  return idCourse + 1
 }
 
-courseStore.getSingleCourse = function (id) {
-  return this.model.data[id]
+
+
+courseStore.existenseId = function (paramsId) {
+  for (let i = 0; i < courseStore.model.data.length; i++) {
+    if (courseStore.model.data[i].id == paramsId)
+      return true;
+  }
+  return false
 }
+
+courseStore.findIndexModel = function (paramsId) {
+  let findIdIdModel
+  this.model.data.forEach((elem, index) => {
+    if (elem.id === paramsId) {
+      findIdIdModel = index
+
+    }
+  })
+  return findIdIdModel
+}
+
+
+courseStore.getAll = function () {
+  return this.model.data
+}
+
+courseStore.getById = function (id) {
+  if (this.existenseId(id)) {
+
+    let indexCourse = this.findIndexModel(id)
+    return this.model.data[indexCourse]
+
+  }
+  else return false
+
+}
+
 
 courseStore.postCourse = function (courseData) {
+
+  courseData.id = this.createNewId()
+
   this.model.data.push(courseData);
 }
 
-courseStore.deleteCourse = function (id) {
-  this.model.data.splice(id, 1)
+courseStore.deleteById = function (id) {
+  if (this.existenseId(id)) {
+
+    let indexCourse = this.findIndexModel(id)
+    this.model.data.splice(indexCourse, 1)
+
+    return true
+  }
+  else return false
+
 }
+
+courseStore.putById = function(dataReq,id){
+
+  if(typeof dataReq === "undefined" ) throw new Error('dataReq is undefined')
+
+  if (this.existenseId(id)) {
+
+    let indexCourse = this.findIndexModel(id)
+
+    dataReq.id = id;
+
+    this.model.data[indexCourse] = dataReq;
+
+    return true
+  }
+  else return false
+
+}
+
 
 
 module.exports = courseStore;
