@@ -40,7 +40,6 @@ courseStore.model = {
 
 
 
-
 courseStore.createNewId = function () {
   idCourse = 0
   courseStore.model.data.forEach(elem => {
@@ -109,8 +108,6 @@ courseStore.deleteById = function (id) {
 }
 
 courseStore.putById = function(dataReq,id){
-
-  if(typeof dataReq === "undefined" ) throw new Error('dataReq is undefined')
 
   if (this.existenseId(id)) {
 

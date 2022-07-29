@@ -31,9 +31,8 @@ courseController.post = function (req, res, next) {
 courseController.putById = function (req, res, next) {
 
   const id = Number(req.params.id);
-
-  let resultAddData = courseService.putById(req.body, id)
-
+  
+  let resultAddData = courseService.putById(req.body,id)
   if(resultAddData){
     res.status(200).send('Данные успешно изменены')
   }
