@@ -2,16 +2,18 @@ const courseController = {};
 
 const courseService = require('../services/courseServise')
 
-courseController.getAll = function (req, res, next) {
-    res.send(courseService.getAll());
+courseController.getAll =async function (req, res, next) {
+    res.send(await courseService.getAll());
   };
 
-courseController.getById = function (req, res, next) {
+courseController.getById =async function (req, res, next) {
 
   let id = Number(req.params.id)
 
-  if(courseService.getById(id)!==false){
-    res.send(courseService.getById(id))
+  const resultQuery = await courseService.getById(id)
+
+  if(resultQuery!==false){
+    res.send(resultQuery)
   }
   else res.send("Ошибка")
 };

@@ -1,21 +1,21 @@
 const validData = require('../valid/validData')
 
 
-const courseStore = require('../store/courseStore')
+const courseStore = require('../store/databaseCourseStore')
 const courseModel = require('../models/courseModel')
 
 const courseService = {}
 
-courseService.getAll = function () {
-    return courseStore.getAll()
+courseService.getAll = async function () {
+    return await courseStore.getAll()
 }
 
 
 
-courseService.getById = function (paramsId) {
+courseService.getById =async function (paramsId) {
 
     if (validData.validParamsId(paramsId)) {
-        return courseStore.getById(paramsId);
+        return await courseStore.getById(paramsId);
     }
     else return false
 
