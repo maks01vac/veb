@@ -24,12 +24,18 @@ courseService.getById =async function (paramsId) {
 
 
 
-courseService.post = function (dataReq) {
+courseService.post =async function (dataReq) {
     if (validData.validProperty(courseModel.template, dataReq)) {
 
-        courseStore.postCourse(dataReq);
+        const resultCreate = await courseStore.postCourse(dataReq);
+
+        if(resultCreate === false){
+            return false
+        }
 
         return true
+
+       
     }
     else return false
 
@@ -38,10 +44,10 @@ courseService.post = function (dataReq) {
 
 
 
-courseService.putById = function (dataReq, paramsId) {
+courseService.putById = async function (dataReq, paramsId) {
     if (validData.validProperty(courseModel.template, dataReq) && validData.validParamsId(paramsId)) {
 
-        return courseStore.putById(dataReq, paramsId)
+        return await courseStore.putById(dataReq, paramsId)
     }
     else return false
 
@@ -50,9 +56,9 @@ courseService.putById = function (dataReq, paramsId) {
 
 
 
-courseService.deleteById = function (paramsId) {
+courseService.deleteById = async function (paramsId) {
     if (validData.validParamsId(paramsId)) {
-        return courseStore.deleteById(paramsId);
+        return await courseStore.deleteById(paramsId);
     }
     else return false
 }

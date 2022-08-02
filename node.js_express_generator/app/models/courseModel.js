@@ -6,7 +6,7 @@ courseModel.template = {
       "firstname": "Maks",
       "lastname": "Glazkov"
     },
-    "Username": "Maks01vac",
+    "username": "Maks01vac",
   }
 
 courseModel.mappingTemplate = function (user) {
@@ -16,7 +16,7 @@ courseModel.mappingTemplate = function (user) {
         "firstname": user.firstname,
         "lastname": user.lastname
       },
-      "Username": user.username,
+      "username": user.username,
     }
   }
 

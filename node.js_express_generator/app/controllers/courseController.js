@@ -18,9 +18,9 @@ courseController.getById =async function (req, res, next) {
   else res.send("Ошибка")
 };
 
-courseController.post = function (req, res, next) {
+courseController.post =async function (req, res, next) {
   let reqBody = req.body;
-  let resultAddData = courseService.post(reqBody)
+  let resultAddData = await courseService.post(reqBody)
   if(resultAddData){
     res.status(200).send('Данные успешно добавлены')
   }
@@ -30,11 +30,11 @@ courseController.post = function (req, res, next) {
 }
 
 
-courseController.putById = function (req, res, next) {
+courseController.putById = async function (req, res, next) {
 
   const id = Number(req.params.id);
   
-  let resultAddData = courseService.putById(req.body,id)
+  let resultAddData = await courseService.putById(req.body,id)
   if(resultAddData){
     res.status(200).send('Данные успешно изменены')
   }
@@ -45,11 +45,11 @@ courseController.putById = function (req, res, next) {
 }
 
 
-courseController.deleteById = function (req, res, next) {
+courseController.deleteById =async function (req, res, next) {
 
-  let id = Number(req.params.id)
-
-  if(courseService.deleteById(id)){
+  const id = Number(req.params.id)
+  const resultDelete = await courseService.deleteById(id)
+  if(resultDelete){
     res.send(`Курс c id:${id} удален`)
   }
   else res.send("Ошибка")
