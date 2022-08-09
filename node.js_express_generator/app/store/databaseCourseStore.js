@@ -1,25 +1,15 @@
 const { json } = require('express')
-const db = require('../config')
+const db_pool = require('../db_pool/db_pool')
 
-const model = require('../models/courseModel')
-
+const mappingData = require('../mappers/mappingDataModel')
 
 const courseStore = {}
-
-courseStore.mappingDataFromDatabase = function (data) {
-
-    const mappingData = data.map(user => {
-        return model.mappingTemplate(user)
-    })
-    return mappingData;
-}
-
 
 
 courseStore.getAll = async function () {
     try {
-        const getAllUsersFromData = await db.query('SELECT * FROM users u INNER JOIN username n ON u.id_user=n.id_user')
-        return this.mappingDataFromDatabase(getAllUsersFromData.rows)
+        const getAllUsersFromData = await db_pool.query('SELECT u.id_user,firstname,lastname,username FROM users u INNER JOIN username n ON u.id_user=n.id_user')
+        return mappingData.mappingDataFromDatabase(getAllUsersFromData.rows)
     }
     catch (err) {
         throw err
@@ -29,17 +19,15 @@ courseStore.getAll = async function () {
 
 courseStore.getById = async function (id) {
     try {
-        const getUserById = await db.query('SELECT * FROM users u INNER JOIN username n ON u.id_user=n.id_user WHERE u.id_user=$1', [id]);
+        const getUserById = await db_pool.query('SELECT u.id_user,firstname,lastname,username FROM users u INNER JOIN username n ON u.id_user=n.id_user WHERE u.id_user=$1', [id]);
 
         if (getUserById.rows.length !== 0) {
-            return this.mappingDataFromDatabase(getUserById.rows)
+            return mappingData.mappingDataFromDatabase(getUserById.rows)
         } else return false
     }
     catch (err) {
         throw err
     }
-
-
 
 }
 
@@ -49,18 +37,19 @@ courseStore.postCourse = async function (courseData) {
     const { firstname, lastname } = name;
 
     try {
-        await db.query('BEGIN;')
+        await db_pool.query('BEGIN;')
 
-        const queryInsertInUsers = 'INSERT INTO users(firstname, lastname) VALUES ($1, $2);';
-        await db.query(queryInsertInUsers, [firstname, lastname]);
+        const queryInsertInUsers = 'INSERT INTO users(firstname, lastname) VALUES ($1, $2) RETURNING id_user;';
+        const returningIdUsers = await db_pool.query(queryInsertInUsers, [firstname, lastname]);
+        const idUsername = returningIdUsers.rows[0].id_user
 
-        const queryInsertInUsername = 'INSERT INTO username SELECT id_user, $1 FROM users WHERE id_user = (SELECT MAX(id_user) FROM users);';
-        await db.query(queryInsertInUsername, [username]);
+        const queryInsertInUsername = 'INSERT INTO username(id_user,username) VALUES ($1,$2)';
+        await db_pool.query(queryInsertInUsername, [idUsername, username]);
 
-        await db.query('COMMIT;');
+        await db_pool.query('COMMIT;');
     }
     catch (err) {
-        await db.query('ROLLBACK;');
+        await db_pool.query('ROLLBACK;');
         throw err
     }
 }
@@ -71,20 +60,24 @@ courseStore.putById = async function (dataReq, id) {
     const { firstname, lastname } = name;
 
     try {
-        await db.query('BEGIN;')
-        const findingId = await db.query('SELECT id_user FROM users WHERE id_user=$1', [id])
+        await db_pool.connect();
+
+        await db_pool.query('BEGIN;');
+        const findingId = await db_pool.query('SELECT id_user FROM users WHERE id_user=$1', [id]);
 
         if (findingId.rows.length === 0) return false
 
-        await db.query('UPDATE users SET firstname = $1, lastname =$2 WHERE id_user=$3', [firstname, lastname, id])
-        await db.query('UPDATE username SET username = $1 WHERE id_user=$2', [username, id])
+        await db_pool.query('UPDATE users SET firstname = $1, lastname =$2 WHERE id_user=$3', [firstname, lastname, id]);
+        await db_pool.query('UPDATE username SET username = $1 WHERE id_user=$2', [username, id]);
 
-        await db.query('COMMIT;')
+        await db_pool.query('COMMIT;');
+
+        db_pool.end();
         return true
 
     }
     catch (err) {
-        await db.query('ROLLBACK;');
+        await db_pool.query('ROLLBACK;');
         console.log(err)
         return false
     }
@@ -98,19 +91,19 @@ courseStore.putById = async function (dataReq, id) {
 courseStore.deleteById = async function (id) {
 
     try {
-        await db.query('BEGIN;')
+        await db_pool.query('BEGIN;')
 
-        const findingId = await db.query('SELECT id_user FROM users WHERE id_user=$1', [id])
+        const findingId = await db_pool.query('SELECT id_user FROM users WHERE id_user=$1', [id])
 
         if (findingId.rows.length === 0) return false
 
-        await db.query('DELETE FROM users WHERE id_user=$1', [id])
+        await db_pool.query('DELETE FROM users WHERE id_user=$1', [id])
 
-        await db.query('COMMIT;')
+        await db_pool.query('COMMIT;')
         return true
     }
     catch (err) {
-        await db.query('ROLLBACK;');
+        await db_pool.query('ROLLBACK;');
         console.log(err)
         return false
     }
