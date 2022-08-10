@@ -2,57 +2,82 @@ const courseController = {};
 
 const courseService = require('../services/courseServise')
 
+const mappers = require('../mappers/mappingDataModel')
+
+
 courseController.getAll =async function (req, res, next) {
-    res.send(await courseService.getAll());
+
+  const resultGetAll = await courseService.getAll()
+
+  if(resultGetAll.success){
+    res.status(200).send(resultGetAll.result);
+  }
+  else res.status(mappers.mapErrorsCode(resultGetAll.errorCode)).send(resultGetAll.errorMessage)
+    
+
   };
+
+
+
 
 courseController.getById =async function (req, res, next) {
 
   let id = Number(req.params.id)
 
-  const resultQuery = await courseService.getById(id)
+  const result = await courseService.getById(id)
 
-  if(resultQuery!==false){
-    res.send(resultQuery)
+  if(result.success){
+    res.send(result.result)
   }
-  else res.send("Ошибка")
+  else res.status(mappers.mapErrorsCode(result.errorCode)).send(result.errorMessage)
 };
 
+
+
+
 courseController.post =async function (req, res, next) {
-  let reqBody = req.body;
-  let resultAddData = await courseService.post(reqBody)
-  if(resultAddData){
-    res.status(200).send('Данные успешно добавлены')
+  const reqBody = req.body;
+  const result = await courseService.post(reqBody)
+  if(result.success){
+    res.status(200).send('Пользователь добавлен')
   }
   else{
-    res.status(404).send('Неправильно введенные данные')
+    res.status(mappers.mapErrorsCode(result.errorCode)).send(result)
   }
 }
+
+
+
 
 
 courseController.putById = async function (req, res, next) {
 
   const id = Number(req.params.id);
   
-  let resultAddData = await courseService.putById(req.body,id)
-  if(resultAddData){
-    res.status(200).send('Данные успешно изменены')
+  let result = await courseService.putById(req.body,id)
+  console.log(result);
+  
+  if(result.success){
+    res.status(200).send(`Данные пользователя с id:${id} изменены`)
   }
   else{
-    res.status(404).send('Неправильно введенные данные')
+    res.status(mappers.mapErrorsCode(result.errorCode)).send(result)
   }
 
 }
+
+
 
 
 courseController.deleteById =async function (req, res, next) {
 
   const id = Number(req.params.id)
   const resultDelete = await courseService.deleteById(id)
-  if(resultDelete){
+  console.log(resultDelete);
+  if(resultDelete.success){
     res.send(`Курс c id:${id} удален`)
   }
-  else res.send("Ошибка")
+  else res.status(mappers.mapErrorsCode(resultDelete.errorCode)).send(resultDelete.errorMessage)
 };
 
 
