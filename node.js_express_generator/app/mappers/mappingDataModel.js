@@ -1,38 +1,39 @@
-const model = require('../models/courseModel')
+const mappers = {};
 
-const mappingDataModel = {};
+// mappingDataModel.mapToModel = function (data) {
 
-mappingDataModel.mappingDataFromDatabase = function (data) {
+//     const mappingData = data.map(user => {
+//         return model.maptoModel(user)
+//     })
+//     return mappingData;
+// }
 
-    const mappingData = data.map(user => {
-        return model.mappingTemplate(user)
-    })
-    return mappingData;
-}
-
-mappingDataModel.mapErrorsCode = function(code){
+mappers.mapErrorCodeToHttpCode = function (code) {
     let statusCode
-    switch(code){
+    switch (code) {
 
-        case 'Invalid id':
-        case 'different structure':
-        case '>20 symbols':
-        case 'empty property':
-        case 'type data invalid':
-        case 'number property diferent':
-        case 'empty data':
+        case 'invalidId':
+        case 'invalidDataStructure':
+        case 'limitSymbols':
+        case 'emptyProperty':
+        case 'invalidDataType':
+        case 'invalidNumberOfProperties':
+        case 'emptyData':
             statusCode = 400;
             break;
-        case 'id Not Found':
+
+        case 'idNotFound':
             statusCode = 404;
             break;
-        case 'Drop database':
+
+        case 'errorInDatabase':
+            statusCode = 500;
+
+        default:
             statusCode = 500;
     }
 
     return statusCode;
-    
-
 }
 
-module.exports = mappingDataModel;
+module.exports = mappers;
