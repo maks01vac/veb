@@ -1,5 +1,5 @@
 const userService = require('../services/userService');
-const mappers = require('../mappers/mappingDataModel');
+const mappers = require('../mappers/mappers');
 const logger = require('../logger/logger');
 
 const userController = {};
@@ -44,7 +44,7 @@ userController.post = async function (req, res, next) {
   logger.info('Entering CourseController.POST');
   logger.debug(`Trying to create a course with params:${reqBody} `);
 
-  const resultCreateNewUser = await userService.post(reqBody);
+  const resultCreateNewUser = await userService.createNewUser(reqBody);
   logger.debug('Trying to create a course with params.', resultCreateNewUser);
 
   if (resultCreateNewUser.success) {

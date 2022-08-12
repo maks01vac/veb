@@ -40,7 +40,7 @@ userService.getById = async function (paramsId) {
 
 
 
-userService.post = async function (userData) {
+userService.createNewUser = async function (userData) {
 
     logger.debug('Validating new course data');
     const dataValidationResult = validators.validateSchema(userModel.template, userData);
@@ -53,11 +53,10 @@ userService.post = async function (userData) {
     logger.debug('New course data is valid.');
     logger.debug('Creating new course in the DB');
     
-    var res = await courseStore.postCourse(userData);
+    var res = await courseStore.createNewUser(userData);
     logger.debug(res, 'New course created');
 
     return res;
-
 }
 
 

@@ -13,17 +13,19 @@ userStore.getAll = async function () {
         const dbResult = await client.query('SELECT u.id_user,firstname,lastname,username FROM users u INNER JOIN username n ON u.id_user=n.id_user')
         return {
             success: true,
-            data: dbResult.rows.map(userModel.maptoModel),
+            data: dbResult.rows.map(userModel.mapToModel),
             //data: mappingData.mapToModel(getAllUsersFromData.rows)
         }
 
     }
     catch (err) {
+        logger.error(err,'error getting users from database');
+
         return {
             success: false,
             error: {
                 errorMessage: "Sorry, database is not available",
-                errorCode: "dropDatabase",
+                errorCode: "errorInDatabase",
             }
 
         }
@@ -50,17 +52,17 @@ userStore.getById = async function (id) {
 
         return {
             success: true,
-            result: getUserById.rows.map(userModel.maptoModel)
+            result: getUserById.rows.map(userModel.mapToModel)
             // result: mappingData.mapToModel(getUserById.rows)
         }
 
     }
     catch (err) {
-        logger.fatal('database problem');
+        logger.error(err,'error getting user from database');
         return {
             success: false,
             errorMessage: "Sorry, database is not available",
-            errorCode: "dropDatabase",
+            errorCode: "errorInDatabase",
         }
     }
     finally {
@@ -86,17 +88,17 @@ userStore.findUserById = async function (id) {
         return {
             success: false,
             errorMessage: "Sorry, database is not available",
-            errorCode: "dropDatabase",
+            errorCode: "errorInDatabase",
         }
     }
 
 }
 
 
-userStore.postCourse = async function (courseData) {
+userStore.createNewUser = async function (userData) {
 
     logger.debug('input data deconstruction')
-    const { name, username } = courseData;
+    const { name, username } = userData;
     const { firstname, lastname } = name;
 
     logger.debug('database connection')
@@ -128,7 +130,7 @@ userStore.postCourse = async function (courseData) {
         }
     }
     catch (err) {
-        logger.error(err, 'Error in database')
+        logger.error(err, 'Database user creation error')
 
         debugger
         await client.query('ROLLBACK;');
@@ -153,13 +155,13 @@ userStore.postCourse = async function (courseData) {
 }
 
 
-userStore.updateById = async function (dataReq, id) {
-    const { name, username } = dataReq;
+userStore.updateById = async function (userData, userId) {
+    const { name, username } = userData;
     const { firstname, lastname } = name;
 
     const client = await dbPool.connect();
 
-    const resultSearchId = await this.findUserById(id)
+    const resultSearchId = await this.findUserById(userId)
     if (resultSearchId.success === false) {
         logger.error(resultSearchId);
         return resultSearchId
@@ -168,8 +170,8 @@ userStore.updateById = async function (dataReq, id) {
     try {
         await client.query('BEGIN;');
 
-        await client.query('UPDATE users SET firstname = $1, lastname =$2 WHERE id_user=$3', [firstname, lastname, id]);
-        await client.query('UPDATE username SET username = $1 WHERE id_user=$2', [username, id]);
+        await client.query('UPDATE users SET firstname = $1, lastname =$2 WHERE id_user=$3', [firstname, lastname, userId]);
+        await client.query('UPDATE username SET username = $1 WHERE id_user=$2', [username, userId]);
 
         await client.query('COMMIT;');
 
@@ -178,11 +180,11 @@ userStore.updateById = async function (dataReq, id) {
     }
     catch (err) {
         await client.query('ROLLBACK;');
-        console.log(err)
+        logger.error(err,'error updating user from database')
         return {
             success: false,
             errorMessage: 'Failed to change data',
-            errorCode: 'dropDatabase'
+            errorCode: 'errorInDatabase'
         }
     }
     finally {
@@ -195,9 +197,9 @@ userStore.updateById = async function (dataReq, id) {
 
 
 
-userStore.deleteById = async function (id) {
+userStore.deleteById = async function (userId) {
 
-    const resultSearchId = await this.findUserById(id);
+    const resultSearchId = await this.findUserById(userId);
 
     if (resultSearchId.success === false) {
         logger.error(resultSearchId);
@@ -208,19 +210,19 @@ userStore.deleteById = async function (id) {
 
     try {
 
-        await client.query('DELETE FROM users WHERE id_user=$1', [id])
+        await client.query('DELETE FROM users WHERE id_user=$1', [userId])
         return { success: true }
 
     }
     catch (err) {
         await client.query('ROLLBACK;');
 
-        console.log(err);
+        logger.error(err, 'error updating user from database')
 
         return {
             success: false,
             errorMessage: 'Failed to delete data',
-            errorCode: 'dropDatabase'
+            errorCode: 'errorInDatabase'
         }
     }
     finally {

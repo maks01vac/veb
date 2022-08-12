@@ -9,7 +9,7 @@ userModel.template = {
   "username": "Maks01vac",
 }
 
-userModel.maptoModel = function (rawUserDBData) {
+userModel.mapToModel = function (rawUserDBData) {
   return {
     id: rawUserDBData.id_user,
     "name": {
